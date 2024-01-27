@@ -3,4 +3,6 @@ class VideoPath {
   static const tsrm_m_v6f = 'assets/videos/merk/tsrm_m_v6f.mp4';
   static const medicalTaiwanAftermovie =
       'assets/videos/taitra/medical_taiwan_aftermovie.mp4';
+  static const promotionalVideo =
+      'assets/videos/home/home_promotional_video.mp4';
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wang_hann_exhibition/constant/video_path.dart';
-import 'package:wang_hann_exhibition/presentation/Navbar/navbar.dart';
 
 class HomeVideo extends StatefulWidget {
   const HomeVideo(
@@ -23,8 +22,7 @@ class _HomeVideoState extends State<HomeVideo> {
   void initState() {
     super.initState();
 
-    _controller =
-        VideoPlayerController.asset(VideoPath.medicalTaiwanAftermovie);
+    _controller = VideoPlayerController.asset(VideoPath.promotionalVideo);
 
     _controller.initialize().then((_) {
       // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
