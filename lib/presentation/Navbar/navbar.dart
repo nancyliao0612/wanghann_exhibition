@@ -265,62 +265,65 @@ class _NavbarState extends State<Navbar> {
                     pcMenuItem('Service', 1),
                     const Gap(24),
                     TextButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          barrierColor: Colors.transparent,
-                          builder: (context) {
-                            return Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 59),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 16),
-                                  height: 208,
-                                  width: MediaQuery.of(context).size.width,
-                                  color: WangHannColor.darkGrey,
-                                  child: Column(
-                                    children: [
-                                      clientCaseItem(
-                                        context,
-                                        isSmallScreen: context.isSmallScreen,
-                                        item: 'TSITC 台灣免疫暨腫瘤學會',
-                                        route: '/TSITC',
-                                      ),
-                                      clientCaseItem(
-                                        context,
-                                        isSmallScreen: context.isSmallScreen,
-                                        item: 'AbbVie 艾柏維',
-                                        route: '/AbbVie',
-                                      ),
-                                      clientCaseItem(
-                                        context,
-                                        isSmallScreen: context.isSmallScreen,
-                                        item: 'Merck KGaA 默克',
-                                        route: '/Merck',
-                                      ),
-                                      clientCaseItem(
-                                        context,
-                                        isSmallScreen: context.isSmallScreen,
-                                        item: '外貿協會',
-                                        route: '/TAITRA',
-                                      ),
-                                      clientCaseItem(
-                                        context,
-                                        isSmallScreen: context.isSmallScreen,
-                                        item: '羅氏 x 資誠聯合會計師事務所',
-                                        openExternalLink: true,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: pcMenuItem('Works', 4),
-                    ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            barrierColor: Colors.transparent,
+                            builder: (context) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 59),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16),
+                                    height: 208,
+                                    width: MediaQuery.of(context).size.width,
+                                    color: WangHannColor.darkGrey,
+                                    child: Column(
+                                      children: [
+                                        clientCaseItem(
+                                          context,
+                                          isSmallScreen: context.isSmallScreen,
+                                          item: 'TSITC 台灣免疫暨腫瘤學會',
+                                          route: '/TSITC',
+                                        ),
+                                        clientCaseItem(
+                                          context,
+                                          isSmallScreen: context.isSmallScreen,
+                                          item: 'AbbVie 艾柏維',
+                                          route: '/AbbVie',
+                                        ),
+                                        clientCaseItem(
+                                          context,
+                                          isSmallScreen: context.isSmallScreen,
+                                          item: 'Merck KGaA 默克',
+                                          route: '/Merck',
+                                        ),
+                                        clientCaseItem(
+                                          context,
+                                          isSmallScreen: context.isSmallScreen,
+                                          item: '外貿協會',
+                                          route: '/TAITRA',
+                                        ),
+                                        clientCaseItem(
+                                          context,
+                                          isSmallScreen: context.isSmallScreen,
+                                          item: '羅氏 x 資誠聯合會計師事務所',
+                                          openExternalLink: true,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          'Work',
+                          style: UITextStyle.title1PC
+                              .copyWith(color: WangHannColor.white),
+                        )),
                     const Gap(24),
                     pcMenuItem('About', 5),
                     const Gap(24),

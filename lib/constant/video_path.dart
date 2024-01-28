@@ -5,4 +5,6 @@ class VideoPath {
       'assets/videos/taitra/medical_taiwan_aftermovie.mp4';
   static const promotionalVideo =
       'assets/videos/home/home_promotional_video.mp4';
+  static const mobilePromotionalVideo =
+      'assets/videos/home/home_s_promotional_video.mp4';
 }

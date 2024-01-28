@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:wang_hann_exhibition/presentation/Home/home_video.dart';
 import 'package:wang_hann_exhibition/presentation/Home/partner.dart';
+import 'package:wang_hann_exhibition/presentation/Home/pc_testimony_page.dart';
 import 'package:wang_hann_exhibition/presentation/Home/testimony_page.dart';
 import 'package:wang_hann_exhibition/presentation/Navbar/navbar.dart';
 import 'package:wang_hann_exhibition/presentation/Portfolios/abbvie_portfolio.dart';
@@ -13,6 +14,7 @@ import 'package:wang_hann_exhibition/presentation/Home/footer.dart';
 import 'package:wang_hann_exhibition/presentation/Home/portfolio_page.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:wang_hann_exhibition/presentation/Privacy%20Policy/privacy_policy.dart';
+import 'package:wang_hann_exhibition/utils/context_extension.dart';
 
 import 'presentation/Home/service_page.dart';
 
@@ -122,64 +124,73 @@ class _MyHomePageState extends State<MyHomePage> {
     //   );
     // }
 
-    return Scaffold(
-      appBar: Navbar(context, itemScrollController, args),
+    return Stack(
+      children: [
+        Scaffold(
+          // AppBar(
+          //   // TRY THIS: Try changing the color here to a specific color (to
+          //   // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+          //   // change color while the other colors stay the same.
+          //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          //   // Here we take the value from the MyHomePage object that was created by
+          //   // the App.build method, and use it to set our appbar title.
 
-      // AppBar(
-      //   // TRY THIS: Try changing the color here to a specific color (to
-      //   // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-      //   // change color while the other colors stay the same.
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //   // Here we take the value from the MyHomePage object that was created by
-      //   // the App.build method, and use it to set our appbar title.
-
-      //   title: Text(widget.title),
-      // ),
-      body: ScrollablePositionedList.builder(
-        itemCount: 7,
-        itemBuilder: (context, index) => item(index, itemScrollController),
-        itemScrollController: itemScrollController,
-        //Scroll physics for environments that prevent the scroll offset from reaching beyond the bounds of the content.
-        physics: const ClampingScrollPhysics(),
-        // child: Column(
-        //   // Column is also a layout widget. It takes a list of children and
-        //   // arranges them vertically. By default, it sizes itself to fit its
-        //   // children horizontally, and tries to be as tall as its parent.
-        //   //
-        //   // Column has various properties to control how it sizes itself and
-        //   // how it positions its children. Here we use mainAxisAlignment to
-        //   // center the children vertically; the main axis here is the vertical
-        //   // axis because Columns are vertical (the cross axis would be
-        //   // horizontal).
-        //   //
-        //   // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-        //   // action in the IDE, or press "p" in the console), to see the
-        //   // wireframe for each widget.
-        //   // mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     const ServicePage(),
-        //     const Partner(),
-        //     Testimony(context: context),
-        //     const PortfolioPage(),
-        //     const AboutPage(),
-        //     const Footer()
-        //   ],
-        // ),
-      ),
+          //   title: Text(widget.title),
+          // ),
+          body: ScrollablePositionedList.builder(
+            itemCount: 7,
+            itemBuilder: (context, index) =>
+                item(index, itemScrollController, context),
+            itemScrollController: itemScrollController,
+            //Scroll physics for environments that prevent the scroll offset from reaching beyond the bounds of the content.
+            physics: const ClampingScrollPhysics(),
+            // child: Column(
+            //   // Column is also a layout widget. It takes a list of children and
+            //   // arranges them vertically. By default, it sizes itself to fit its
+            //   // children horizontally, and tries to be as tall as its parent.
+            //   //
+            //   // Column has various properties to control how it sizes itself and
+            //   // how it positions its children. Here we use mainAxisAlignment to
+            //   // center the children vertically; the main axis here is the vertical
+            //   // axis because Columns are vertical (the cross axis would be
+            //   // horizontal).
+            //   //
+            //   // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+            //   // action in the IDE, or press "p" in the console), to see the
+            //   // wireframe for each widget.
+            //   // mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     const ServicePage(),
+            //     const Partner(),
+            //     Testimony(context: context),
+            //     const PortfolioPage(),
+            //     const AboutPage(),
+            //     const Footer()
+            //   ],
+            // ),
+          ),
+        ),
+        SizedBox(
+          height: context.isSmallScreen ? 45.3 : 59,
+          child: Navbar(context, itemScrollController, args),
+        ),
+      ],
     );
   }
 
-  Widget item(int i, ItemScrollController itemScrollController) {
+  Widget item(
+      int i, ItemScrollController itemScrollController, BuildContext context) {
     // print('index $i');
     switch (i) {
       case 0:
-        return HomeVideo(itemScrollController);
+        return HomeVideo(itemScrollController, context);
+      // : PCHomeVideo(itemScrollController, context);
       case 1:
         return const ServicePage();
       case 2:
         return const Partner();
       case 3:
-        return Testimony(context: context);
+        return context.isSmallScreen ? const Testimony() : const PcTestimony();
       case 4:
         return const PortfolioPage();
       case 5:

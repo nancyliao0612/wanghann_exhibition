@@ -30,6 +30,7 @@ class BaseWork extends StatefulWidget {
 
 class _BaseWorkState extends State<BaseWork> {
   bool isHover = false;
+  bool isFocus = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +48,20 @@ class _BaseWorkState extends State<BaseWork> {
               Navigator.of(context).pushNamed(widget.route ?? '/');
             }
           },
+          onFocusChange: (focus) {
+            setState(() {
+              isFocus = focus;
+            });
+          },
           onHover: (hover) {
             setState(() {
               isHover = hover;
             });
           },
           child: ChangeColors(
-            saturation: isHover ? 0 : -1,
-            hue: isHover ? 0 : -1,
-            brightness: isHover ? 0 : -0.05,
+            saturation: isHover || isFocus ? 0 : -1,
+            hue: isHover || isFocus ? 0 : -1,
+            brightness: isHover || isFocus ? 0 : -0.05,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
