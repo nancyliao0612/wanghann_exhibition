@@ -1,10 +1,13 @@
 import 'dart:js' as js;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:themed/themed.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 import 'package:wang_hann_exhibition/app_ui/typography/app_text_style.dart';
+import 'package:wang_hann_exhibition/constant/icon_path.dart';
+import 'package:wang_hann_exhibition/utils/context_extension.dart';
 
 class BaseWork extends StatefulWidget {
   const BaseWork({
@@ -14,6 +17,7 @@ class BaseWork extends StatefulWidget {
     required this.client,
     required this.event,
     required this.isSmallScreen,
+    this.showArrow = false,
     super.key,
   });
 
@@ -23,6 +27,7 @@ class BaseWork extends StatefulWidget {
   final String client;
   final String event;
   final bool isSmallScreen;
+  final bool showArrow;
 
   @override
   State<BaseWork> createState() => _BaseWorkState();
@@ -69,14 +74,25 @@ class _BaseWorkState extends State<BaseWork> {
                   imageUrl: widget.imageUrl,
                 ),
                 const Gap(8),
-                Text(
-                  widget.client,
-                  style: (widget.isSmallScreen
-                          ? UITextStyle.title1
-                          : UITextStyle.title1PC)
-                      .copyWith(
-                    color: WangHannColor.black,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      widget.client,
+                      style: (widget.isSmallScreen
+                              ? UITextStyle.title1
+                              : UITextStyle.title1PC)
+                          .copyWith(
+                        color: WangHannColor.black,
+                      ),
+                    ),
+                    if (widget.showArrow == true) ...[
+                      const Gap(4),
+                      SvgPicture.asset(
+                        IconPath.arrow,
+                        width: context.isSmallScreen ? 20 : 24,
+                      )
+                    ]
+                  ],
                 ),
                 Text(
                   widget.event,

@@ -10,7 +10,7 @@ extension WidgetX on Widget {
             left: 24,
             right: 24,
             top: 48,
-            bottom: 36,
+            bottom: 48,
           ),
           child: this,
         ),

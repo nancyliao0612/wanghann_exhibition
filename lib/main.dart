@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:wang_hann_exhibition/presentation/Home/home_video.dart';
 import 'package:wang_hann_exhibition/presentation/Home/partner.dart';
+import 'package:wang_hann_exhibition/presentation/Home/pc_home_video.dart';
 import 'package:wang_hann_exhibition/presentation/Home/pc_testimony_page.dart';
 import 'package:wang_hann_exhibition/presentation/Home/testimony_page.dart';
 import 'package:wang_hann_exhibition/presentation/Navbar/navbar.dart';
@@ -180,11 +181,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget item(
       int i, ItemScrollController itemScrollController, BuildContext context) {
-    // print('index $i');
     switch (i) {
       case 0:
-        return HomeVideo(itemScrollController, context);
-      // : PCHomeVideo(itemScrollController, context);
+        return context.isSmallScreen
+            ? HomeVideo(itemScrollController, context)
+            : PCHomeVideo(itemScrollController, context);
+      // return const Text('');
       case 1:
         return const ServicePage();
       case 2:
@@ -198,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 6:
         return const Footer();
       default:
-        return const Footer();
+        return const Text('');
     }
   }
 }

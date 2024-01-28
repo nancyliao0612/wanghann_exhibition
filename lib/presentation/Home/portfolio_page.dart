@@ -57,6 +57,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
           externalLink: true,
           imageUrl: 'https://i.imgur.com/EoxdRjD.jpg',
           client: '羅氏 x 資誠聯合會計師事務所',
+          showArrow: true,
           event: '台灣推行次世代基因定序檢測實驗室管理與給付政策之探討',
           isSmallScreen: context.isSmallScreen,
         ),

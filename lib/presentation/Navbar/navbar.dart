@@ -7,6 +7,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 import 'package:wang_hann_exhibition/app_ui/typography/app_text_style.dart';
+import 'package:wang_hann_exhibition/constant/icon_path.dart';
 import 'package:wang_hann_exhibition/constant/logo_path.dart';
 import 'package:wang_hann_exhibition/utils/context_extension.dart';
 
@@ -115,12 +116,15 @@ class _NavbarState extends State<Navbar> {
         children: [
           const Gap(12),
           Expanded(
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed('/'),
-              child: SvgPicture.asset(
-                context.isSmallScreen
-                    ? LogoPath.smallWangHannLogo
-                    : LogoPath.largeWangHannLogo,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).pushNamed('/'),
+                child: SvgPicture.asset(
+                  context.isSmallScreen
+                      ? LogoPath.smallWangHannLogo
+                      : LogoPath.largeWangHannLogo,
+                ),
               ),
             ),
           ),
@@ -231,6 +235,7 @@ class _NavbarState extends State<Navbar> {
                                               isSmallScreen:
                                                   context.isSmallScreen,
                                               item: '羅氏 x 資誠聯合會計師事務所',
+                                              showArrow: true,
                                               openExternalLink: true,
                                             ),
                                           ],
@@ -276,7 +281,7 @@ class _NavbarState extends State<Navbar> {
                                     margin: const EdgeInsets.only(top: 59),
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 16),
-                                    height: 208,
+                                    height: 198,
                                     width: MediaQuery.of(context).size.width,
                                     color: WangHannColor.darkGrey,
                                     child: Column(
@@ -309,6 +314,7 @@ class _NavbarState extends State<Navbar> {
                                           context,
                                           isSmallScreen: context.isSmallScreen,
                                           item: '羅氏 x 資誠聯合會計師事務所',
+                                          showArrow: true,
                                           openExternalLink: true,
                                         ),
                                       ],
@@ -320,7 +326,7 @@ class _NavbarState extends State<Navbar> {
                           );
                         },
                         child: Text(
-                          'Work',
+                          'Works',
                           style: UITextStyle.title1PC
                               .copyWith(color: WangHannColor.white),
                         )),
@@ -342,29 +348,36 @@ Widget clientCaseItem(
   required bool isSmallScreen,
   required String item,
   String? route,
+  showArrow = false,
   bool? openExternalLink,
 }) {
   return TextButton(
-      onPressed: () {
-        if (openExternalLink == true) {
-          js.context.callMethod('open', [
-            'https://www.pwc.tw/zh/industries/biotech-services/bio-news/bio-monthly-updates-2307.html'
-          ]);
-        } else {
-          Navigator.of(context).pop();
-          Navigator.of(context).pushNamed(route ?? '/');
-        }
-      },
-      child: Text(
-        item,
-        style: (isSmallScreen ? UITextStyle.body1 : UITextStyle.body1PC)
-            .copyWith(color: WangHannColor.white),
-      ));
+    onPressed: () {
+      if (openExternalLink == true) {
+        js.context.callMethod('open', [
+          'https://www.pwc.tw/zh/industries/biotech-services/bio-news/bio-monthly-updates-2307.html'
+        ]);
+      } else {
+        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed(route ?? '/');
+      }
+    },
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          item,
+          style: (isSmallScreen ? UITextStyle.body1 : UITextStyle.body1PC)
+              .copyWith(color: WangHannColor.white),
+        ),
+        if (showArrow == true) ...[
+          const Gap(4),
+          SvgPicture.asset(IconPath.arrow,
+              width: context.isSmallScreen ? 20 : 24,
+              colorFilter:
+                  const ColorFilter.mode(WangHannColor.white, BlendMode.srcIn))
+        ]
+      ],
+    ),
+  );
 }
-
-// Widget pcClientCaseItem(String item) {
-//   return Text(
-//     item,
-//     style: UITextStyle.body1PC.copyWith(color: WangHannColor.white),
-//   );
-// }

@@ -26,12 +26,19 @@ class Footer extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Wanghann Healthcare Agency',
-                        style: UITextStyle.title1.copyWith(
-                          color: WangHannColor.white,
-                        ),
-                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/');
+                          },
+                          style: ButtonStyle(
+                              padding:
+                                  MaterialStateProperty.all(EdgeInsets.zero)),
+                          child: Text(
+                            'Wanghann Healthcare Agency',
+                            style: UITextStyle.title1.copyWith(
+                              color: WangHannColor.white,
+                            ),
+                          )),
                       Text(
                         '汪翰生醫策展',
                         style: UITextStyle.title1.copyWith(
@@ -44,12 +51,20 @@ class Footer extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Wanghann Precision Medicine Co., Ltd. Taiwan',
-                        style: UITextStyle.title1.copyWith(
-                          color: WangHannColor.white,
-                        ),
-                      ),
+                      TextButton(
+                          style: ButtonStyle(
+                              padding:
+                                  MaterialStateProperty.all(EdgeInsets.zero)),
+                          onPressed: () {
+                            html.window.open(
+                                'https://www.wanghann-oncodna.com', '_blank');
+                          },
+                          child: Text(
+                            'Wanghann Precision Medicine Co., Ltd. Taiwan',
+                            style: UITextStyle.title1.copyWith(
+                              color: WangHannColor.white,
+                            ),
+                          )),
                       Text(
                         '汪翰精準生醫',
                         style: UITextStyle.title1.copyWith(
@@ -65,8 +80,8 @@ class Footer extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           html.window.open(
-                            'https://www.instagram.com/23_synergy/?hl=en',
-                            'new tab',
+                            'https://medium.com/@elirazventures',
+                            '_blank',
                           );
                         },
                         padding: EdgeInsets.zero,
@@ -77,7 +92,7 @@ class Footer extends StatelessWidget {
                         onPressed: () {
                           html.window.open(
                             'https://www.instagram.com/23_synergy/?hl=en',
-                            'new tab',
+                            '_blank',
                           );
                         },
                         padding: EdgeInsets.zero,
@@ -85,7 +100,8 @@ class Footer extends StatelessWidget {
                       ),
                       const Gap(24),
                       IconButton(
-                        onPressed: () {},
+                        //FIXME
+                        onPressed: null,
                         padding: EdgeInsets.zero,
                         icon: SvgPicture.asset(IconPath.youtube),
                       )
@@ -121,7 +137,7 @@ class Footer extends StatelessWidget {
                         ),
                         child: Text(
                           'Privacy Policy',
-                          style: UITextStyle.captionPC.copyWith(
+                          style: UITextStyle.caption.copyWith(
                             color: WangHannColor.white,
                             decoration: TextDecoration.underline,
                             decorationColor: WangHannColor.white,
@@ -150,12 +166,19 @@ class Footer extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Wanghann Healthcare Agency',
-                          style: UITextStyle.title1PC.copyWith(
-                            color: WangHannColor.white,
-                          ),
-                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/');
+                            },
+                            style: ButtonStyle(
+                                padding:
+                                    MaterialStateProperty.all(EdgeInsets.zero)),
+                            child: Text(
+                              'Wanghann Healthcare Agency',
+                              style: UITextStyle.title1PC.copyWith(
+                                color: WangHannColor.white,
+                              ),
+                            )),
                         Text(
                           '汪翰生醫策展',
                           style: UITextStyle.title1PC.copyWith(
@@ -163,12 +186,20 @@ class Footer extends StatelessWidget {
                           ),
                         ),
                         const Gap(16),
-                        Text(
-                          'Wanghann Precision Medicine Co., Ltd. Taiwan',
-                          style: UITextStyle.title1PC.copyWith(
-                            color: WangHannColor.white,
-                          ),
-                        ),
+                        TextButton(
+                            style: ButtonStyle(
+                                padding:
+                                    MaterialStateProperty.all(EdgeInsets.zero)),
+                            onPressed: () {
+                              html.window.open(
+                                  'https://www.wanghann-oncodna.com', '_blank');
+                            },
+                            child: Text(
+                              'Wanghann Precision Medicine Co., Ltd. Taiwan',
+                              style: UITextStyle.title1PC.copyWith(
+                                color: WangHannColor.white,
+                              ),
+                            )),
                         Text(
                           '汪翰精準生醫',
                           style: UITextStyle.title1PC.copyWith(
@@ -188,7 +219,7 @@ class Footer extends StatelessWidget {
                             IconButton(
                               onPressed: () {
                                 html.window.open(
-                                  'https://www.instagram.com/23_synergy/?hl=en',
+                                  'https://medium.com/@elirazventures',
                                   'new tab',
                                 );
                               },

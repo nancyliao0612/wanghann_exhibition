@@ -29,32 +29,25 @@ class Partner extends StatelessWidget {
             ],
           ),
           const Gap(36),
-          Center(
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: 327,
-                  child: Text(
-                    '10+',
-                    style: UITextStyle.h1.copyWith(
-                      color: WangHannColor.black,
-                    ),
-                  ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '10+',
+                style: UITextStyle.h1.copyWith(
+                  color: WangHannColor.black,
                 ),
-                Positioned(
-                  right: 10,
-                  top: 24,
-                  child: Text(
-                    '藥廠、企業、醫學會',
-                    style: UITextStyle.h2.copyWith(
-                      color: WangHannColor.lightGrey,
-                    ),
-                  ),
-                )
-              ],
-            ),
+              ),
+              Text(
+                '藥廠、企業、醫學會',
+                style: UITextStyle.h2.copyWith(
+                  color: WangHannColor.lightGrey,
+                ),
+              )
+            ],
           ),
-          const Gap(36),
+          const Gap(32),
           Text(
             'Sanofi 賽諾菲\nRoche 羅氏\nMedJohnson 美強生\nillumina 因美納\nMerck KGaA 默克\nAbbVie 艾伯維\nTSITC 台灣免疫暨腫瘤學會\n台灣臨床腫瘤醫學會台灣病理學會\n中華民國內分泌暨糖尿病學會\n台灣生殖醫學會\n台灣婦產科醫學會\n台灣新生兒科醫學會\n台灣小兒消化醫學會\n臺灣牙周病醫學會\n台灣胰臟癌醫學會\nTAITRA 中華民國對外貿易發展協會\nPwC 資誠聯合會計師事務所\nH2U 永悅健康股份有限公司',
             style: UITextStyle.title1.copyWith(
@@ -75,37 +68,31 @@ class Partner extends StatelessWidget {
             ],
           ),
           const Gap(36),
-          Center(
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: 327,
-                  child: Text(
-                    '10+',
-                    style: UITextStyle.h1.copyWith(
-                      color: WangHannColor.black,
-                    ),
-                  ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '10+',
+                style: UITextStyle.h1.copyWith(
+                  color: WangHannColor.black,
                 ),
-                Positioned(
-                  right: 10,
-                  top: 24,
-                  child: Text(
-                    '藥廠、企業、醫學會',
-                    style: UITextStyle.h2.copyWith(
-                      color: WangHannColor.lightGrey,
-                    ),
-                  ),
-                )
-              ],
-            ),
+              ),
+              Text(
+                '藥廠、企業、醫學會',
+                style: UITextStyle.h2.copyWith(
+                  color: WangHannColor.lightGrey,
+                ),
+              )
+            ],
           ),
           const Gap(36),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Text(
-                  'Sanofi 賽諾菲\nRoche 羅氏\nMedJohnson 美強生\nillumina 因美納\nMerck KGaA 默克\nAbbVie 艾伯維\nTSITC 台灣免疫暨腫瘤學會\n台灣臨床腫瘤醫學會台灣病理學會\n中華民國內分泌暨糖尿病學會\n台灣生殖醫學會',
+                  'Sanofi 賽諾菲\nRoche 羅氏\nMedJohnson 美強生\nillumina 因美納\nMerck KGaA 默克\nAbbVie 艾伯維\nTSITC 台灣免疫暨腫瘤學會\n台灣臨床腫瘤醫學會\n台灣病理學會\n中華民國內分泌暨糖尿病學會',
                   style: UITextStyle.title1.copyWith(
                     color: WangHannColor.black60,
                   ),
@@ -114,7 +101,7 @@ class Partner extends StatelessWidget {
               const Gap(10),
               Expanded(
                 child: Text(
-                  '台灣婦產科醫學會\n台灣新生兒科醫學會\n台灣小兒消化醫學會\n臺灣牙周病醫學會\n台灣胰臟癌醫學會\nTAITRA 中華民國對外貿易發展協會\nPwC 資誠聯合會計師事務所\nH2U 永悅健康股份有限公司\n',
+                  '台灣生殖醫學會\n台灣婦產科醫學會\n台灣新生兒科醫學會\n台灣小兒消化醫學會\n臺灣牙周病醫學會\n台灣胰臟癌醫學會\nTAITRA 中華民國對外貿易發展協會\nPwC 資誠聯合會計師事務所\nH2U 永悅健康股份有限公司\n',
                   style: UITextStyle.title1.copyWith(
                     color: WangHannColor.black60,
                   ),
@@ -136,32 +123,25 @@ class Partner extends StatelessWidget {
             ],
           ),
           const Gap(64),
-          Center(
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: 495,
-                  child: Text(
-                    '10+',
-                    style: UITextStyle.h1PC.copyWith(
-                      color: WangHannColor.black,
-                    ),
-                  ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '10+',
+                style: UITextStyle.h1PC.copyWith(
+                  color: WangHannColor.black,
                 ),
-                Positioned(
-                  right: 10,
-                  top: 40,
-                  child: Text(
-                    '藥廠、企業、醫學會',
-                    style: UITextStyle.h2PC.copyWith(
-                      color: WangHannColor.lightGrey,
-                    ),
-                  ),
-                )
-              ],
-            ),
+              ),
+              Text(
+                '藥廠、企業、醫學會',
+                style: UITextStyle.h2PC.copyWith(
+                  color: WangHannColor.lightGrey,
+                ),
+              )
+            ],
           ),
-          const Gap(36),
+          const Gap(52),
           Row(
             children: [
               _partnerItem(
