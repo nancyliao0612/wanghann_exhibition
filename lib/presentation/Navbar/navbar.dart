@@ -1,5 +1,4 @@
-import 'dart:js' as js;
-
+import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -25,7 +24,7 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => context.isSmallScreen
-      ? const Size.fromHeight(45.3)
+      ? const Size.fromHeight(55)
       : const Size.fromHeight(59);
 }
 
@@ -39,27 +38,34 @@ class _NavbarState extends State<Navbar> {
     super.initState();
     WidgetsBinding.instance.endOfFrame.then((value) {
       if (widget.extra != null) {
-        widget.itemScrollController?.scrollTo(
-          index: 5,
-          duration: const Duration(seconds: 2),
-          curve: Curves.easeInOutCubic,
-          // alignment: 1.0,
-        );
+        switch (widget.extra) {
+          case 'Service' || 'SERVICE':
+            widget.itemScrollController?.scrollTo(
+              index: 1,
+              duration: const Duration(seconds: 2),
+              curve: Curves.easeInOutCubic,
+            );
+          case 'About' || 'ABOUT':
+            widget.itemScrollController?.scrollTo(
+              index: 5,
+              duration: const Duration(seconds: 2),
+              curve: Curves.easeInOutCubic,
+            );
+          case 'Contact' || 'CONTACT':
+            widget.itemScrollController?.scrollTo(
+              index: 6,
+              duration: const Duration(seconds: 2),
+              curve: Curves.easeInOutCubic,
+            );
+        }
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print('extra ${widget.extra}');
-    //FIXME: AppBar should be transparent
-
     void scrollTo(int index) async {
-      // if (widget.itemScrollController?.isAttached ?? false) {
-      // await Navigator.of(context).pushNamed('/');
-
-      print('widget.itemScrollController ${widget.itemScrollController}');
-
+      // print('scroll to $index');
       widget.itemScrollController?.scrollTo(
         index: index,
         duration: const Duration(seconds: 2),
@@ -69,70 +75,72 @@ class _NavbarState extends State<Navbar> {
       // }
     }
 
-    Widget menuItem(
-      BuildContext context, {
+    Widget menuItem({
       required String item,
       required int index,
     }) {
+      final notAtHomeRoute = ModalRoute.of(context)!.settings.name != '/';
+
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
-        child: TextButton(
-          onPressed: () async {
-            print('index $index');
-            Navigator.of(context).pop();
-            // if (widget.showGoHome == true && mounted) {
-            //   print('here');
-            //   await Navigator.of(context).pushNamed('/');
-            // }
-            scrollTo(index);
-          },
-          style: const ButtonStyle(
-            padding:
-                MaterialStatePropertyAll<EdgeInsetsGeometry?>(EdgeInsets.zero),
-          ),
-          child: Text(
-            item,
-            style: UITextStyle.title1.copyWith(color: WangHannColor.white),
+        child: DefaultTextStyle(
+          style: UITextStyle.title1.copyWith(color: WangHannColor.white),
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+                if (notAtHomeRoute) {
+                  Navigator.pushNamed(context, '/', arguments: item);
+                } else {
+                  scrollTo(index);
+                }
+              },
+              child: Text(item),
+            ),
           ),
         ),
       );
     }
 
     Widget pcMenuItem(String item, int index) {
+      final notAtHomeRoute =
+          ModalRoute.of(context)!.settings.name != '/' && item != 'Contact';
+      // print('current route ${ModalRoute.of(context)!.settings.name}');
+
       return TextButton(
-          onPressed: () => scrollTo(index),
+          onPressed: () {
+            if (notAtHomeRoute) {
+              Navigator.pushNamed(context, '/', arguments: item);
+            } else {
+              scrollTo(index);
+            }
+          },
           child: Text(
             item,
-            style: UITextStyle.title1PC.copyWith(color: WangHannColor.white),
+            style: UITextStyle.title1.copyWith(color: WangHannColor.white),
           ));
     }
 
     return AppBar(
       backgroundColor: WangHannColor.black.withOpacity(0.7),
-      // toolbarOpacity: 0.7,
-      // bottomOpacity: 0.7,
-      toolbarHeight: context.isSmallScreen ? 45.3 : 60,
+      toolbarHeight: context.isSmallScreen ? 55 : 60,
       leading: Row(
         children: [
-          const Gap(12),
+          const Gap(16),
           Expanded(
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () => Navigator.of(context).pushNamed('/'),
-                child: SvgPicture.asset(
-                  context.isSmallScreen
-                      ? LogoPath.smallWangHannLogo
-                      : LogoPath.largeWangHannLogo,
-                ),
+                child: SvgPicture.asset(LogoPath.wangHannLogo),
               ),
             ),
           ),
         ],
       ),
-      leadingWidth: context.isSmallScreen ? 88 : 135,
+      leadingWidth: 117,
       foregroundColor: WangHannColor.white,
-
       actions: [
         context.isSmallScreen
             ? Row(
@@ -142,119 +150,117 @@ class _NavbarState extends State<Navbar> {
                       showDialog(
                           context: context,
                           barrierColor: Colors.transparent,
-                          //FIXME
-                          anchorPoint: const Offset(-20, -50),
                           builder: (context) {
-                            return Column(
-                              children: <Widget>[
-                                Container(
-                                  margin: const EdgeInsets.only(top: 45.3),
-                                  width: MediaQuery.of(context).size.width,
-                                  color: WangHannColor.darkGrey,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 16),
-                                    child: StatefulBuilder(
-                                      builder: (context, setState) => Column(
-                                        children: <Widget>[
-                                          menuItem(
-                                            context,
-                                            item: 'SERVICE',
-                                            index: 1,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              IconButton(
-                                                visualDensity:
-                                                    VisualDensity.compact,
-                                                onPressed: () {
-                                                  setState(() {
-                                                    _showClientCaseMenu =
-                                                        !_showClientCaseMenu;
-                                                  });
-                                                },
-                                                icon: Icon(
-                                                  _showClientCaseMenu
-                                                      ? Icons
-                                                          .arrow_drop_down_outlined
-                                                      : Icons
-                                                          .arrow_right_outlined,
+                            return SizedBox(
+                              height: 380,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 55),
+                                    width: MediaQuery.of(context).size.width,
+                                    color: WangHannColor.darkGrey,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16),
+                                      child: StatefulBuilder(
+                                        builder: (context, setState) => Column(
+                                          children: <Widget>[
+                                            menuItem(
+                                              item: 'SERVICE',
+                                              index: 1,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(
+                                                  visualDensity:
+                                                      VisualDensity.compact,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _showClientCaseMenu =
+                                                          !_showClientCaseMenu;
+                                                    });
+                                                  },
+                                                  icon: Icon(
+                                                    _showClientCaseMenu
+                                                        ? Icons
+                                                            .arrow_drop_down_outlined
+                                                        : Icons
+                                                            .arrow_right_outlined,
+                                                  ),
+                                                  color: WangHannColor.white,
+                                                  iconSize: 18,
                                                 ),
-                                                color: WangHannColor.white,
-                                                iconSize: 18,
-                                              ),
-                                              menuItem(
+                                                menuItem(
+                                                  item: 'WORKS',
+                                                  index: 4,
+                                                ),
+                                                IconButton(
+                                                  visualDensity:
+                                                      VisualDensity.compact,
+                                                  onPressed: () {},
+                                                  icon: const Icon(Icons
+                                                      .arrow_drop_down_outlined),
+                                                  color: Colors.transparent,
+                                                  iconSize: 18,
+                                                ),
+                                              ],
+                                            ),
+                                            if (_showClientCaseMenu) ...[
+                                              clientCaseItem(
                                                 context,
-                                                item: 'WORKS',
-                                                index: 4,
+                                                isSmallScreen:
+                                                    context.isSmallScreen,
+                                                item: 'TSITC 台灣免疫暨腫瘤學會',
+                                                route: '/TSITC',
                                               ),
-                                              IconButton(
-                                                visualDensity:
-                                                    VisualDensity.compact,
-                                                onPressed: () {},
-                                                icon: const Icon(Icons
-                                                    .arrow_drop_down_outlined),
-                                                color: Colors.transparent,
-                                                iconSize: 18,
+                                              clientCaseItem(
+                                                context,
+                                                isSmallScreen:
+                                                    context.isSmallScreen,
+                                                item: 'AbbVie 艾柏維',
+                                                route: '/AbbVie',
+                                              ),
+                                              clientCaseItem(
+                                                context,
+                                                isSmallScreen:
+                                                    context.isSmallScreen,
+                                                item: 'Merck KGaA 默克',
+                                                route: '/Merck',
+                                              ),
+                                              clientCaseItem(
+                                                context,
+                                                isSmallScreen:
+                                                    context.isSmallScreen,
+                                                item: '外貿協會',
+                                                route: '/TAITRA',
+                                              ),
+                                              clientCaseItem(
+                                                context,
+                                                isSmallScreen:
+                                                    context.isSmallScreen,
+                                                item: '羅氏 x 資誠聯合會計師事務所',
+                                                showArrow: true,
+                                                openExternalLink: true,
                                               ),
                                             ],
-                                          ),
-                                          if (_showClientCaseMenu) ...[
-                                            clientCaseItem(
-                                              context,
-                                              isSmallScreen:
-                                                  context.isSmallScreen,
-                                              item: 'TSITC 台灣免疫暨腫瘤學會',
-                                              route: '/TSITC',
+                                            menuItem(
+                                              item: 'ABOUT',
+                                              index: 5,
                                             ),
-                                            clientCaseItem(
-                                              context,
-                                              isSmallScreen:
-                                                  context.isSmallScreen,
-                                              item: 'AbbVie 艾柏維',
-                                              route: '/AbbVie',
-                                            ),
-                                            clientCaseItem(
-                                              context,
-                                              isSmallScreen:
-                                                  context.isSmallScreen,
-                                              item: 'Merck KGaA 默克',
-                                              route: '/Merck',
-                                            ),
-                                            clientCaseItem(
-                                              context,
-                                              isSmallScreen:
-                                                  context.isSmallScreen,
-                                              item: '外貿協會',
-                                              route: '/TAITRA',
-                                            ),
-                                            clientCaseItem(
-                                              context,
-                                              isSmallScreen:
-                                                  context.isSmallScreen,
-                                              item: '羅氏 x 資誠聯合會計師事務所',
-                                              showArrow: true,
-                                              openExternalLink: true,
+                                            menuItem(
+                                              item: 'CONTACT',
+                                              index: 6,
                                             ),
                                           ],
-                                          menuItem(
-                                            context,
-                                            item: 'ABOUT',
-                                            index: 5,
-                                          ),
-                                          menuItem(
-                                            context,
-                                            item: 'CONTACT',
-                                            index: 6,
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             );
                           });
                     },
@@ -281,7 +287,7 @@ class _NavbarState extends State<Navbar> {
                                     margin: const EdgeInsets.only(top: 59),
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 16),
-                                    height: 198,
+                                    height: 218,
                                     width: MediaQuery.of(context).size.width,
                                     color: WangHannColor.darkGrey,
                                     child: Column(
@@ -327,7 +333,7 @@ class _NavbarState extends State<Navbar> {
                         },
                         child: Text(
                           'Works',
-                          style: UITextStyle.title1PC
+                          style: UITextStyle.title1
                               .copyWith(color: WangHannColor.white),
                         )),
                     const Gap(24),
@@ -351,33 +357,42 @@ Widget clientCaseItem(
   showArrow = false,
   bool? openExternalLink,
 }) {
-  return TextButton(
-    onPressed: () {
-      if (openExternalLink == true) {
-        js.context.callMethod('open', [
-          'https://www.pwc.tw/zh/industries/biotech-services/bio-news/bio-monthly-updates-2307.html'
-        ]);
-      } else {
-        Navigator.of(context).pop();
-        Navigator.of(context).pushNamed(route ?? '/');
-      }
-    },
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          item,
-          style: (isSmallScreen ? UITextStyle.body1 : UITextStyle.body1PC)
-              .copyWith(color: WangHannColor.white),
+  return MouseRegion(
+    cursor: SystemMouseCursors.click,
+    child: GestureDetector(
+      onTap: () {
+        if (openExternalLink == true) {
+          html.window.open(
+              'https://www.pwc.tw/zh/industries/biotech-services/bio-news/bio-monthly-updates-2307.html',
+              '_blank');
+        } else {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed(route ?? '/');
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DefaultTextStyle(
+              style: UITextStyle.title1.copyWith(color: WangHannColor.white),
+              child: Text(
+                item,
+                style: (isSmallScreen ? UITextStyle.body1 : UITextStyle.body1)
+                    .copyWith(color: WangHannColor.white),
+              ),
+            ),
+            if (showArrow == true) ...[
+              const Gap(4),
+              SvgPicture.asset(IconPath.arrow,
+                  width: context.isSmallScreen ? 20 : 24,
+                  colorFilter: const ColorFilter.mode(
+                      WangHannColor.white, BlendMode.srcIn))
+            ]
+          ],
         ),
-        if (showArrow == true) ...[
-          const Gap(4),
-          SvgPicture.asset(IconPath.arrow,
-              width: context.isSmallScreen ? 20 : 24,
-              colorFilter:
-                  const ColorFilter.mode(WangHannColor.white, BlendMode.srcIn))
-        ]
-      ],
+      ),
     ),
   );
 }

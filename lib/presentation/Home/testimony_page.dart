@@ -92,7 +92,7 @@ class _TestimonyState extends State<Testimony> {
         backgroundColorAllTabs: WangHannColor.black,
       ),
       //FIXME
-    ).mobileBlackBackgroundPadding(null);
+    ).mobileBlackBackgroundPadding();
   }
 }
 

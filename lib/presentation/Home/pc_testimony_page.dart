@@ -25,7 +25,7 @@ class _PcTestimonyState extends State<PcTestimony> {
     listContentConfig.add(
       ContentConfig(
         title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3PC.copyWith(color: WangHannColor.white),
+        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
         textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
         widgetDescription: pcTestimony(
@@ -38,7 +38,7 @@ class _PcTestimonyState extends State<PcTestimony> {
     listContentConfig.add(
       ContentConfig(
         title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3PC.copyWith(color: WangHannColor.white),
+        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
         textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
         widgetDescription: pcTestimony(
@@ -51,7 +51,7 @@ class _PcTestimonyState extends State<PcTestimony> {
     listContentConfig.add(
       ContentConfig(
         title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3PC.copyWith(color: WangHannColor.white),
+        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
         textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
         widgetDescription: pcTestimony(
@@ -92,7 +92,7 @@ class _PcTestimonyState extends State<PcTestimony> {
         ),
         backgroundColorAllTabs: WangHannColor.black,
       ),
-    ).pcBlackBackgroundPadding(null);
+    ).pcBlackBackgroundPadding();
   }
 }
 
@@ -118,7 +118,7 @@ Widget pcTestimony(String content, String source) {
             ),
             Text(
               content,
-              style: UITextStyle.body1PC.copyWith(color: WangHannColor.white),
+              style: UITextStyle.body1.copyWith(color: WangHannColor.white),
             )
           ],
         ),
@@ -132,7 +132,7 @@ Widget pcTestimony(String content, String source) {
           alignment: Alignment.topRight,
           child: Text(
             source,
-            style: UITextStyle.body1PC.copyWith(color: WangHannColor.white),
+            style: UITextStyle.body1.copyWith(color: WangHannColor.white),
           ),
         )
       ],

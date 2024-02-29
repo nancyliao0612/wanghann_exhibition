@@ -1,4 +1,5 @@
-import 'dart:js' as js;
+import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:universal_html/html.dart' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +36,6 @@ class BaseWork extends StatefulWidget {
 
 class _BaseWorkState extends State<BaseWork> {
   bool isHover = false;
-  bool isFocus = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,69 +44,62 @@ class _BaseWorkState extends State<BaseWork> {
       children: [
         widget.isSmallScreen ? const Gap(36) : const Gap(48),
         InkWell(
-          onTap: () {
-            if (widget.externalLink == true) {
-              js.context.callMethod('open', [
-                'https://www.pwc.tw/zh/industries/biotech-services/bio-news/bio-monthly-updates-2307.html'
-              ]);
-            } else {
-              Navigator.of(context).pushNamed(widget.route ?? '/');
-            }
-          },
-          onFocusChange: (focus) {
-            setState(() {
-              isFocus = focus;
-            });
-          },
-          onHover: (hover) {
-            setState(() {
-              isHover = hover;
-            });
-          },
-          child: ChangeColors(
-            saturation: isHover || isFocus ? 0 : -1,
-            hue: isHover || isFocus ? 0 : -1,
-            brightness: isHover || isFocus ? 0 : -0.05,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CachedNetworkImage(
-                  imageUrl: widget.imageUrl,
-                ),
-                const Gap(8),
-                Row(
-                  children: [
-                    Text(
-                      widget.client,
-                      style: (widget.isSmallScreen
-                              ? UITextStyle.title1
-                              : UITextStyle.title1PC)
-                          .copyWith(
-                        color: WangHannColor.black,
-                      ),
+            onTap: () {
+              if (widget.externalLink == true) {
+                html.window.open(
+                    'https://www.pwc.tw/zh/industries/biotech-services/bio-news/bio-monthly-updates-2307.html',
+                    '_blank');
+              } else {
+                Navigator.of(context).pushNamed(widget.route ?? '/');
+              }
+            },
+            onHover: (hover) {
+              setState(() {
+                isHover = hover;
+              });
+            },
+            child: ChangeColors(
+              saturation: isHover ? 0 : -1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: widget.imageUrl,
+                    placeholder: (context, url) => const AspectRatio(
+                      aspectRatio: 3 / 2,
+                      child: BlurHash(hash: "LFIE|gIU%MM{~qt7RjM{RjWB9F-;"),
                     ),
-                    if (widget.showArrow == true) ...[
-                      const Gap(4),
-                      SvgPicture.asset(
-                        IconPath.arrow,
-                        width: context.isSmallScreen ? 20 : 24,
-                      )
-                    ]
-                  ],
-                ),
-                Text(
-                  widget.event,
-                  style: (widget.isSmallScreen
-                          ? UITextStyle.caption
-                          : UITextStyle.captionPC)
-                      .copyWith(
-                    color: WangHannColor.black,
                   ),
-                )
-              ],
-            ),
-          ),
-        ),
+                  const Gap(8),
+                  Row(
+                    children: [
+                      Text(
+                        widget.client,
+                        style: UITextStyle.title1.copyWith(
+                          color: WangHannColor.black,
+                        ),
+                      ),
+                      if (widget.showArrow == true) ...[
+                        const Gap(4),
+                        SvgPicture.asset(
+                          IconPath.arrow,
+                          width: context.isSmallScreen ? 20 : 24,
+                        )
+                      ]
+                    ],
+                  ),
+                  Text(
+                    widget.event,
+                    style: (widget.isSmallScreen
+                            ? UITextStyle.caption
+                            : UITextStyle.caption)
+                        .copyWith(
+                      color: WangHannColor.black,
+                    ),
+                  )
+                ],
+              ),
+            )),
       ],
     );
   }

@@ -20,13 +20,13 @@ abstract class UITextStyle {
 
   static TextStyle h2 = GoogleFonts.montserrat(
     textStyle: const TextStyle(
-      fontSize: 24,
+      fontSize: 36,
       fontWeight: FontWeight.w600,
-      height: 38.4 / 24,
+      height: 57.6 / 36,
     ),
   );
 
-  static TextStyle h2PC = GoogleFonts.montserrat(
+  static TextStyle h2Chinese = GoogleFonts.notoSansTc(
     textStyle: const TextStyle(
       fontSize: 36,
       fontWeight: FontWeight.w600,
@@ -36,13 +36,13 @@ abstract class UITextStyle {
 
   static TextStyle h3 = GoogleFonts.workSans(
     textStyle: const TextStyle(
-      fontSize: 20,
+      fontSize: 32,
       fontWeight: FontWeight.w600,
-      height: 26 / 20,
+      height: 41.6 / 32,
     ),
   );
 
-  static TextStyle h3PC = GoogleFonts.workSans(
+  static TextStyle h3Chinese = GoogleFonts.notoSansTc(
     textStyle: const TextStyle(
       fontSize: 32,
       fontWeight: FontWeight.w600,
@@ -52,28 +52,21 @@ abstract class UITextStyle {
 
   static TextStyle title1 = GoogleFonts.workSans(
     textStyle: const TextStyle(
-      fontSize: 16,
+      fontSize: 20,
       fontWeight: FontWeight.w600,
-      height: 25.6 / 16,
+      height: 32 / 20,
     ),
   );
 
-  static TextStyle title1PC = GoogleFonts.workSans(
+  static TextStyle title1Chinese = GoogleFonts.notoSansTc(
     textStyle: const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w600,
+      height: 32 / 20,
     ),
   );
 
-  static TextStyle body1 = GoogleFonts.notoSans(
-    textStyle: const TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-      height: 25.6 / 16,
-    ),
-  );
-
-  static TextStyle body1PC = GoogleFonts.notoSans(
+  static TextStyle body1 = GoogleFonts.notoSansTc(
     textStyle: const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w400,
@@ -81,15 +74,7 @@ abstract class UITextStyle {
     ),
   );
 
-  static TextStyle caption = GoogleFonts.notoSans(
-    textStyle: const TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w400,
-      height: 19.2 / 12,
-    ),
-  );
-
-  static TextStyle captionPC = GoogleFonts.notoSans(
+  static TextStyle caption = GoogleFonts.notoSansTc(
     textStyle: const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w400,

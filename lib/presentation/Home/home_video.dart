@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 import 'package:wang_hann_exhibition/app_ui/typography/app_text_style.dart';
 import 'package:wang_hann_exhibition/constant/video_path.dart';
-import 'package:wang_hann_exhibition/utils/context_extension.dart';
 
 class HomeVideo extends StatefulWidget {
   const HomeVideo(
@@ -23,6 +21,7 @@ class HomeVideo extends StatefulWidget {
 
 class _HomeVideoState extends State<HomeVideo> {
   VideoPlayerController? _controller;
+  late Future<void>? _initializeVideoPlayerFuture;
 
   @override
   void initState() {
@@ -30,24 +29,23 @@ class _HomeVideoState extends State<HomeVideo> {
 
     _controller = VideoPlayerController.asset(VideoPath.mobilePromotionalVideo);
 
-    _controller?.addListener(() {
-      setState(() {});
+    _initializeVideoPlayerFuture = _controller?.initialize();
+
+    // https://stackoverflow.com/questions/59966403/flutter-web-video-player-autoplay
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // mutes the video
+      _controller?.setVolume(0);
+      // Plays the video once the widget is build and loaded.
+      _controller?.play();
     });
-    _controller?.setLooping(true);
-    _controller?.initialize().then((_) => setState(() {}));
-    _controller?.play();
 
-    // _controller = VideoPlayerController.asset(VideoPath.promotionalVideo);
+    // _controller?.play();
 
-    // _controller.initialize().then((_) async {
-    //   // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-
-    //   // mutes the video
-    //   await _controller.setVolume(0);
+    // // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+    // _controller?.initialize().then((_) {
+    //   _controller?.setLooping(true);
     //   // Plays the video once the widget is build and loaded.
-    //   await _controller.play();
-
-    //   // _controller.value.isPlaying
+    //   _controller?.play();
     // });
   }
 
@@ -59,41 +57,64 @@ class _HomeVideoState extends State<HomeVideo> {
 
   @override
   Widget build(BuildContext context) {
-    // print('_controller.value.aspectRatio ${_controller.value.aspectRatio}');
-    return Center(
-        child: _controller?.value.isInitialized ?? false
-            ? Stack(
-                children: [
-                  AspectRatio(
-                    // aspectRatio: _controller.value.aspectRatio,
-                    aspectRatio: context.isSmallScreen ? 4 / 3 : 16 / 9,
-                    child: VideoPlayer(_controller!),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
+    return FutureBuilder(
+      future: _initializeVideoPlayerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          _controller?.play();
+          _controller?.setLooping(true);
+
+          return ColoredBox(
+            color: WangHannColor.black,
+            child: Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 4 / 3,
+                  child: VideoPlayer(_controller!),
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: SizedBox(
+                      width: 327,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '在生醫貪玩，在專業貪心',
-                            style: UITextStyle.h2
-                                .copyWith(color: WangHannColor.white),
+                            '在生醫貪玩，',
+                            style: UITextStyle.h2Chinese.copyWith(
+                              color: WangHannColor.white,
+                            ),
                           ),
-                          const Gap(8),
-                          //FIXME
                           Text(
-                            'Exceptional People, Building Exceptional Companies',
-                            style: UITextStyle.title1
-                                .copyWith(color: WangHannColor.white),
-                          ),
+                            '在專業貪心',
+                            style: UITextStyle.h2Chinese.copyWith(
+                              color: WangHannColor.white,
+                            ),
+                          )
                         ],
                       ),
                     ),
                   ),
-                ],
-              )
-            : const Text('loading...'));
+                )
+              ],
+            ),
+          );
+        } else {
+          return ColoredBox(
+            color: WangHannColor.black,
+            child: AspectRatio(
+              aspectRatio: 4 / 3,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: WangHannColor.grey,
+                ),
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 }

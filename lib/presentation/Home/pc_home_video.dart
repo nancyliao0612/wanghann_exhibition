@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
@@ -22,6 +21,7 @@ class PCHomeVideo extends StatefulWidget {
 
 class _PCHomeVideoState extends State<PCHomeVideo> {
   VideoPlayerController? _controller;
+  late Future<void>? _initializeVideoPlayerFuture;
 
   @override
   void initState() {
@@ -29,12 +29,15 @@ class _PCHomeVideoState extends State<PCHomeVideo> {
 
     _controller = VideoPlayerController.asset(VideoPath.promotionalVideo);
 
-    _controller?.addListener(() {
-      setState(() {});
+    _initializeVideoPlayerFuture = _controller?.initialize();
+
+    // https://stackoverflow.com/questions/59966403/flutter-web-video-player-autoplay
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // mutes the video
+      _controller?.setVolume(0);
+      // Plays the video once the widget is build and loaded.
+      _controller?.play();
     });
-    _controller?.setLooping(true);
-    _controller?.initialize().then((_) => setState(() {}));
-    _controller?.play();
   }
 
   @override
@@ -45,44 +48,63 @@ class _PCHomeVideoState extends State<PCHomeVideo> {
 
   @override
   Widget build(BuildContext context) {
-    // print('_controller.value.aspectRatio ${_controller.value.aspectRatio}');
-    return _controller?.value.isInitialized ?? false
-        ? Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 16 / 9,
-                child: VideoPlayer(_controller!),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 960),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '在生醫貪玩，在專業貪心',
-                            style: UITextStyle.h2PC
-                                .copyWith(color: WangHannColor.white),
+    return FutureBuilder(
+      future: _initializeVideoPlayerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          _controller?.play();
+          _controller?.setLooping(true);
+
+          return ColoredBox(
+            color: WangHannColor.black,
+            child: Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: VideoPlayer(_controller!),
+                ),
+                Positioned(
+                  bottom: 0,
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 960),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Row(
+                            children: [
+                              Text(
+                                '在生醫貪玩，在專業貪心',
+                                style: UITextStyle.h2Chinese.copyWith(
+                                  color: WangHannColor.white,
+                                ),
+                              )
+                            ],
                           ),
-                          const Gap(2),
-                          //FIXME
-                          Text(
-                            'Exceptional People, Building Exceptional Companies',
-                            style: UITextStyle.title1PC
-                                .copyWith(color: WangHannColor.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        } else {
+          return ColoredBox(
+            color: WangHannColor.black,
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: WangHannColor.grey,
+                ),
               ),
-            ],
-          )
-        : const Text('loading...');
+            ),
+          );
+        }
+      },
+    );
   }
 }

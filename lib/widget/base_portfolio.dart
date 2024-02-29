@@ -30,75 +30,73 @@ class BasePortfolio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: Navbar(
-        context,
-        null,
-        null,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Navbar(
-            //   context,
-            //   null,
-            //   showGoHome: true,
-            // ),
-            context.isSmallScreen
-                ? content.portfolioBlackBackgroundPadding
-                : ColoredBox(
-                    color: WangHannColor.black,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
+      children: [
+        Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                context.isSmallScreen
+                    ? content.portfolioBlackBackgroundPadding
+                    : ColoredBox(
+                        color: WangHannColor.black,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 960),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 24,
+                                  right: 24,
+                                  top: 80,
+                                  bottom: 80,
+                                ),
+                                child: content,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                ColoredBox(
+                  color: WangHannColor.white,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 960),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ConstrainedBox(
-                          constraints: const BoxConstraints(maxWidth: 960),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 24,
-                              right: 24,
-                              top: 20,
-                              bottom: 80,
-                            ),
-                            child: content,
-                          ),
-                        )
+                        Row(
+                          children: [
+                            Text(
+                              'SEE OTHER WORKS',
+                              style: UITextStyle.h3.copyWith(
+                                color: WangHannColor.black,
+                              ),
+                            )
+                          ],
+                        ),
+                        BaseWork(
+                          externalLink: externalLink,
+                          route: nextRoute,
+                          imageUrl: nextImageUrl,
+                          client: nextOrganization,
+                          event: nextWorkshop,
+                          isSmallScreen: context.isSmallScreen,
+                        ),
                       ],
-                    ),
+                    ).whiteBackgroundPadding,
                   ),
-            ColoredBox(
-              color: WangHannColor.white,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 960),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'SEE OTHER WORKS',
-                          style: UITextStyle.h3.copyWith(
-                            color: WangHannColor.black,
-                          ),
-                        )
-                      ],
-                    ),
-                    BaseWork(
-                      externalLink: externalLink,
-                      route: nextRoute,
-                      imageUrl: nextImageUrl,
-                      client: nextOrganization,
-                      event: nextWorkshop,
-                      isSmallScreen: context.isSmallScreen,
-                    ),
-                  ],
-                ).whiteBackgroundPadding,
-              ),
+                ),
+                Footer(itemScrollController),
+              ],
             ),
-            const Footer(),
-          ],
+          ),
         ),
-      ),
+        SizedBox(
+          height: context.isSmallScreen ? 55 : 59,
+          child: Navbar(context, itemScrollController, 'args'),
+        ),
+      ],
     );
   }
 }

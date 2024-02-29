@@ -20,7 +20,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
           children: [
             Text(
               'OUR WORKS',
-              style: context.isSmallScreen ? UITextStyle.h3 : UITextStyle.h3PC,
+              style: UITextStyle.h3,
             )
           ],
         ),
@@ -44,10 +44,9 @@ class _PortfolioPageState extends State<PortfolioPage> {
           event: '默克中國海峽兩岸視訊連線 醫學教育直播',
           isSmallScreen: context.isSmallScreen,
         ),
-        //FIXME: The image url is to be confirmed
         BaseWork(
           route: '/TAITRA',
-          imageUrl: 'https://i.imgur.com/HKM9xrx.jpg',
+          imageUrl: 'https://i.imgur.com/41bxWBt.jpg',
           client: '外貿協會',
           event:
               '外貿協會主辦的「台灣國際醫療暨健康照護展(Medical Taiwan)」整合醫療、照護以及科技產業，打造最完整的健康產業生態系',

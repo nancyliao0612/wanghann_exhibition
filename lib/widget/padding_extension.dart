@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 
 extension WidgetX on Widget {
-  Widget mobileBlackBackgroundPadding(Key? key) => ColoredBox(
+  Widget mobileBlackBackgroundPadding() => ColoredBox(
         color: WangHannColor.black,
         child: Padding(
           key: key,
@@ -16,7 +16,21 @@ extension WidgetX on Widget {
         ),
       );
 
-  Widget pcBlackBackgroundPadding(Key? key) => ColoredBox(
+  Widget mobileBlackBackgroundPaddingForService() => ColoredBox(
+        color: WangHannColor.black,
+        child: Padding(
+          key: key,
+          padding: const EdgeInsets.only(
+            left: 24,
+            right: 24,
+            top: 12,
+            bottom: 48,
+          ),
+          child: this,
+        ),
+      );
+
+  Widget pcBlackBackgroundPadding() => ColoredBox(
         color: WangHannColor.black,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -28,6 +42,28 @@ extension WidgetX on Widget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
                   vertical: 64,
+                ),
+                child: this,
+              ),
+            )
+          ],
+        ),
+      );
+
+  Widget pcServiceBlackBackgroundPadding() => ColoredBox(
+        color: WangHannColor.black,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ConstrainedBox(
+              key: key,
+              constraints: const BoxConstraints(maxWidth: 960),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 24,
+                  right: 24,
+                  top: 5,
+                  bottom: 64,
                 ),
                 child: this,
               ),
@@ -108,7 +144,7 @@ extension WidgetX on Widget {
                 padding: const EdgeInsets.only(
                   left: 24,
                   right: 24,
-                  top: 19,
+                  top: 64,
                   bottom: 64,
                 ),
                 child: this,
@@ -123,7 +159,7 @@ extension WidgetX on Widget {
                       padding: const EdgeInsets.only(
                         left: 24,
                         right: 24,
-                        top: 19,
+                        top: 64,
                         bottom: 64,
                       ),
                       child: this,
@@ -147,7 +183,7 @@ extension WidgetX on Widget {
         color: WangHannColor.black,
         child: Padding(
           padding:
-              const EdgeInsets.only(right: 24, left: 24, top: 20, bottom: 64),
+              const EdgeInsets.only(right: 24, left: 24, top: 64, bottom: 64),
           child: this,
         ),
       );

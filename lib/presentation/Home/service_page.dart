@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 import 'package:wang_hann_exhibition/app_ui/typography/app_text_style.dart';
 import 'package:wang_hann_exhibition/utils/context_extension.dart';
-import 'package:wang_hann_exhibition/utils/key.dart';
 import 'package:wang_hann_exhibition/widget/padding_extension.dart';
 import 'package:gap/gap.dart';
 
@@ -15,6 +14,11 @@ class ServicePage extends StatelessWidget {
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Exceptional People, Building Exceptional Companies',
+                style: UITextStyle.title1.copyWith(color: WangHannColor.white),
+              ),
+              const Gap(48),
               Row(
                 children: [
                   Text(
@@ -42,14 +46,20 @@ class ServicePage extends StatelessWidget {
               service(context.isSmallScreen, 'Market Access And Payer',
                   '產品上市、市場准入活動'),
             ],
-          ).mobileBlackBackgroundPadding(NavigationKey.service).blackBackground
+          ).mobileBlackBackgroundPaddingForService().blackBackground
         : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Exceptional People, Building Exceptional Companies',
+                style: UITextStyle.title1.copyWith(color: WangHannColor.white),
+              ),
+              const Gap(64),
               Row(
                 children: [
                   Text(
                     'WHAT WE DO',
-                    style: UITextStyle.h3PC.copyWith(
+                    style: UITextStyle.h3.copyWith(
                       color: WangHannColor.white,
                     ),
                   )
@@ -89,7 +99,7 @@ class ServicePage extends StatelessWidget {
                 ],
               )
             ],
-          ).pcBlackBackgroundPadding(NavigationKey.service).blackBackground;
+          ).pcServiceBlackBackgroundPadding().blackBackground;
   }
 }
 
@@ -102,8 +112,7 @@ Widget service(isSmallScreen, serviceItemInEnglish, serviceItemInChinese) {
           Expanded(
             child: Text(
               serviceItemInEnglish,
-              style: (isSmallScreen ? UITextStyle.title1 : UITextStyle.title1PC)
-                  .copyWith(
+              style: UITextStyle.title1.copyWith(
                 color: WangHannColor.white,
               ),
             ),
@@ -115,8 +124,7 @@ Widget service(isSmallScreen, serviceItemInEnglish, serviceItemInChinese) {
           Expanded(
             child: Text(
               serviceItemInChinese,
-              style: (isSmallScreen ? UITextStyle.title1 : UITextStyle.title1PC)
-                  .copyWith(
+              style: UITextStyle.title1Chinese.copyWith(
                 color: WangHannColor.white.withOpacity(0.5),
               ),
             ),

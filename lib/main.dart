@@ -23,7 +23,7 @@ void main() {
   // turn off the # in the URLs on the web
   setPathUrlStrategy();
   // ItemScrollController itemScrollController = ItemScrollController();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -42,15 +42,12 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const MyHomePage(null
-
-            // itemScrollController: itemScrollController,
-            ),
-        '/TSITC': (context) => TSITCPortfolio(),
-        '/AbbVie': (context) => AbbViePortfolio(),
-        '/Merck': (context) => MerckPortfolio(),
-        '/TAITRA': (context) => TAITRAPortfolio(),
-        '/PrivacyPolicy': (context) => PrivacyPolicy(),
+        '/': (context) => const MyHomePage(null),
+        '/TSITC': (context) => const TSITCPortfolio(),
+        '/AbbVie': (context) => const AbbViePortfolio(),
+        '/Merck': (context) => const MerckPortfolio(),
+        '/TAITRA': (context) => const TAITRAPortfolio(),
+        '/PrivacyPolicy': (context) => const PrivacyPolicy(),
       },
       theme: ThemeData(
         fontFamily: 'Noto Sans',
@@ -106,8 +103,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     itemScrollController = ItemScrollController();
-    // itemPositionListener = ItemPositionsListener.create();
-    // _tabController = new TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -115,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as String?;
 
-    print('arguments from TSITC: ${args}');
+    // print('arguments from TSITC: ${args}');
     // if (true) {
     //   itemScrollController.scrollTo(
     //     index: 1,
@@ -172,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         SizedBox(
-          height: context.isSmallScreen ? 45.3 : 59,
+          height: context.isSmallScreen ? 55 : 59,
           child: Navbar(context, itemScrollController, args),
         ),
       ],
@@ -198,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 5:
         return const AboutPage();
       case 6:
-        return const Footer();
+        return Footer(itemScrollController);
       default:
         return const Text('');
     }

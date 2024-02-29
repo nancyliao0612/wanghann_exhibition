@@ -1,4 +1,5 @@
-import 'dart:html' as html;
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 import 'package:wang_hann_exhibition/app_ui/typography/app_text_style.dart';
@@ -6,15 +7,14 @@ import 'package:wang_hann_exhibition/constant/icon_path.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:wang_hann_exhibition/utils/context_extension.dart';
-import 'package:wang_hann_exhibition/utils/key.dart';
 
 class Footer extends StatelessWidget {
-  const Footer({super.key});
+  const Footer(this.itemScrollController, {super.key});
+  final ItemScrollController? itemScrollController;
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      key: NavigationKey.contactKey,
       color: WangHannColor.black.withOpacity(0.75),
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -22,7 +22,6 @@ class Footer extends StatelessWidget {
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //FIXME: links are to be confirmed
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -41,7 +40,7 @@ class Footer extends StatelessWidget {
                           )),
                       Text(
                         '汪翰生醫策展',
-                        style: UITextStyle.title1.copyWith(
+                        style: UITextStyle.title1Chinese.copyWith(
                           color: WangHannColor.white.withOpacity(0.5),
                         ),
                       ),
@@ -67,14 +66,13 @@ class Footer extends StatelessWidget {
                           )),
                       Text(
                         '汪翰精準生醫',
-                        style: UITextStyle.title1.copyWith(
+                        style: UITextStyle.title1Chinese.copyWith(
                           color: WangHannColor.white.withOpacity(0.5),
                         ),
                       ),
                     ],
                   ),
                   const Gap(70),
-
                   Row(
                     children: [
                       IconButton(
@@ -100,15 +98,17 @@ class Footer extends StatelessWidget {
                       ),
                       const Gap(24),
                       IconButton(
-                        //FIXME
-                        onPressed: null,
+                        onPressed: () {
+                          html.window.open(
+                              'https://www.youtube.com/channel/UCFcPBfStmw3eFrQW8gHTtGw',
+                              '_blank');
+                        },
                         padding: EdgeInsets.zero,
                         icon: SvgPicture.asset(IconPath.youtube),
                       )
                     ],
                   ),
                   const Gap(24),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -124,14 +124,15 @@ class Footer extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const Gap(24),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextButton(
-                        onPressed: () =>
-                            Navigator.of(context).pushNamed('/PrivacyPolicy'),
+                        onPressed: () => Navigator.of(context).pushNamed(
+                          '/PrivacyPolicy',
+                          arguments: itemScrollController,
+                        ),
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.zero),
                         ),
@@ -161,7 +162,6 @@ class Footer extends StatelessWidget {
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //FIXME: links are to be confirmed
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,13 +175,13 @@ class Footer extends StatelessWidget {
                                     MaterialStateProperty.all(EdgeInsets.zero)),
                             child: Text(
                               'Wanghann Healthcare Agency',
-                              style: UITextStyle.title1PC.copyWith(
+                              style: UITextStyle.title1.copyWith(
                                 color: WangHannColor.white,
                               ),
                             )),
                         Text(
                           '汪翰生醫策展',
-                          style: UITextStyle.title1PC.copyWith(
+                          style: UITextStyle.title1Chinese.copyWith(
                             color: WangHannColor.white.withOpacity(0.5),
                           ),
                         ),
@@ -196,13 +196,13 @@ class Footer extends StatelessWidget {
                             },
                             child: Text(
                               'Wanghann Precision Medicine Co., Ltd. Taiwan',
-                              style: UITextStyle.title1PC.copyWith(
+                              style: UITextStyle.title1.copyWith(
                                 color: WangHannColor.white,
                               ),
                             )),
                         Text(
                           '汪翰精準生醫',
-                          style: UITextStyle.title1PC.copyWith(
+                          style: UITextStyle.title1Chinese.copyWith(
                             color: WangHannColor.white.withOpacity(0.5),
                           ),
                         ),
@@ -239,7 +239,11 @@ class Footer extends StatelessWidget {
                             ),
                             const Gap(24),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                html.window.open(
+                                    'https://www.youtube.com/channel/UCFcPBfStmw3eFrQW8gHTtGw',
+                                    '_blank');
+                              },
                               padding: EdgeInsets.zero,
                               icon: SvgPicture.asset(IconPath.youtube),
                             )
@@ -248,24 +252,26 @@ class Footer extends StatelessWidget {
                         const Gap(40),
                         Text(
                           '+886-932-842828',
-                          style: UITextStyle.captionPC
+                          style: UITextStyle.caption
                               .copyWith(color: WangHannColor.white),
                         ),
                         Text(
                           'scott.li@wanghann.com',
-                          style: UITextStyle.captionPC
+                          style: UITextStyle.caption
                               .copyWith(color: WangHannColor.white),
                         ),
                         const Gap(40),
                         TextButton(
-                          onPressed: () =>
-                              Navigator.of(context).pushNamed('/PrivacyPolicy'),
+                          onPressed: () => Navigator.of(context).pushNamed(
+                            '/PrivacyPolicy',
+                            arguments: itemScrollController,
+                          ),
                           style: ButtonStyle(
                             padding: MaterialStateProperty.all(EdgeInsets.zero),
                           ),
                           child: Text(
                             'Privacy Policy',
-                            style: UITextStyle.captionPC.copyWith(
+                            style: UITextStyle.caption.copyWith(
                               color: WangHannColor.white,
                               decoration: TextDecoration.underline,
                               decorationColor: WangHannColor.white,
@@ -274,12 +280,12 @@ class Footer extends StatelessWidget {
                         ),
                         Text(
                           ' ',
-                          style: UITextStyle.captionPC
+                          style: UITextStyle.caption
                               .copyWith(color: WangHannColor.white),
                         ),
                         Text(
                           '© ${DateTime.now().year} Healthcare Agency. All rights reserved',
-                          style: UITextStyle.captionPC
+                          style: UITextStyle.caption
                               .copyWith(color: WangHannColor.white),
                         ),
                       ],
