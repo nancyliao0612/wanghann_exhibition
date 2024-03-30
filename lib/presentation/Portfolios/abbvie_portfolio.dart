@@ -99,30 +99,37 @@ class AbbViePortfolio extends StatelessWidget {
           ],
           const Gap(36),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/AyGbSq6.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/AbbVie_cover.png',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/SfRRt8h.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/AbbVie_2.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/Ztocxbn.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/AbbVie_3.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/lrYZVoj.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/AbbVie_4.jpg',
           ),
-          //FIXME: Video
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/I0e3NVS.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/AbbVie_5.jpg',
           ),
         ],
       ),
       nextRoute: '/Merck',
       nextOrganization: 'Merck KGaA 默克',
-      nextImageUrl: 'https://i.imgur.com/h7FCNgn.png',
+      nextImageUrl:
+          'https://storage.googleapis.com/exhibition-bucket/merck_cover_color.png',
+      nextBlackImageUrl:
+          'https://storage.googleapis.com/exhibition-bucket/Cover_Merck.jpg',
       nextWorkshop: '默克中國海峽兩岸視訊連線 醫學教育直播',
     );
   }
