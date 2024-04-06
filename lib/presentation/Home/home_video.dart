@@ -3,7 +3,6 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 import 'package:wang_hann_exhibition/app_ui/typography/app_text_style.dart';
-import 'package:wang_hann_exhibition/constant/video_path.dart';
 
 class HomeVideo extends StatefulWidget {
   const HomeVideo(
@@ -22,36 +21,35 @@ class HomeVideo extends StatefulWidget {
 class _HomeVideoState extends State<HomeVideo> {
   VideoPlayerController? _controller;
   late Future<void>? _initializeVideoPlayerFuture;
+  final double aspectRatio = 3 / 4;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = VideoPlayerController.asset(VideoPath.mobilePromotionalVideo);
+    _controller = VideoPlayerController.networkUrl(
+      Uri.parse(
+        'https://storage.googleapis.com/exhibition-bucket/mobile_home_promotional_video.mp4',
+        // 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      ),
+    );
 
     _initializeVideoPlayerFuture = _controller?.initialize();
 
     // https://stackoverflow.com/questions/59966403/flutter-web-video-player-autoplay
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {});
       // mutes the video
       _controller?.setVolume(0);
       // Plays the video once the widget is build and loaded.
       _controller?.play();
     });
-
-    // _controller?.play();
-
-    // // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-    // _controller?.initialize().then((_) {
-    //   _controller?.setLooping(true);
-    //   // Plays the video once the widget is build and loaded.
-    //   _controller?.play();
-    // });
   }
 
   @override
   void dispose() {
     _controller?.dispose();
+
     super.dispose();
   }
 
@@ -69,7 +67,7 @@ class _HomeVideoState extends State<HomeVideo> {
             child: Stack(
               children: [
                 AspectRatio(
-                  aspectRatio: 4 / 3,
+                  aspectRatio: aspectRatio,
                   child: VideoPlayer(_controller!),
                 ),
                 Positioned(
@@ -105,7 +103,7 @@ class _HomeVideoState extends State<HomeVideo> {
           return ColoredBox(
             color: WangHannColor.black,
             child: AspectRatio(
-              aspectRatio: 4 / 3,
+              aspectRatio: aspectRatio,
               child: Center(
                 child: CircularProgressIndicator(
                   color: WangHannColor.grey,

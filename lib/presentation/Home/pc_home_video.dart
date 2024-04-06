@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
@@ -75,11 +76,23 @@ class _PCHomeVideoState extends State<PCHomeVideo> {
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: Row(
                             children: [
-                              Text(
-                                '在生醫貪玩，在專業貪心',
-                                style: UITextStyle.h2Chinese.copyWith(
-                                  color: WangHannColor.white,
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '在生醫貪玩，在專業貪心',
+                                    style: UITextStyle.h2Chinese.copyWith(
+                                      color: WangHannColor.white,
+                                    ),
+                                  ),
+                                  const Gap(10),
+                                  Text(
+                                    'Exceptional People, Building Exceptional Companies',
+                                    style: UITextStyle.title1
+                                        .copyWith(color: WangHannColor.white),
+                                  ),
+                                  const Gap(16),
+                                ],
                               )
                             ],
                           ),
