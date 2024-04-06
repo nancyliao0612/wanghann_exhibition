@@ -106,11 +106,13 @@ class _TSITCPortfolioState extends State<TSITCPortfolio> {
           ],
           const Gap(36),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/RKVDa9a.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/TSITC_1.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/1EwMgSV.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/TSITC_2.jpg',
           ),
           if (!context.isSmallScreen) ...[
             const Gap(76.5),
@@ -145,36 +147,44 @@ class _TSITCPortfolioState extends State<TSITCPortfolio> {
                   width: 444,
                   height: 606,
                   fit: BoxFit.cover,
-                  imageUrl: 'https://i.imgur.com/DYTRIOH.jpg',
+                  imageUrl:
+                      'https://storage.googleapis.com/exhibition-bucket/TSITC_3.jpg',
                 ),
                 const Gap(24),
                 CachedNetworkImage(
                   width: 444,
                   height: 606,
                   fit: BoxFit.cover,
-                  imageUrl: 'https://i.imgur.com/mRlmE0O.jpg',
+                  imageUrl:
+                      'https://storage.googleapis.com/exhibition-bucket/TSITC_4.jpg',
                 ),
               ],
             ),
           ] else ...[
             const Gap(57.5),
             CachedNetworkImage(
-              imageUrl: 'https://i.imgur.com/DYTRIOH.jpg',
+              imageUrl:
+                  'https://storage.googleapis.com/exhibition-bucket/TSITC_3.jpg',
             ),
             const Gap(24),
             CachedNetworkImage(
-              imageUrl: 'https://i.imgur.com/mRlmE0O.jpg',
+              imageUrl:
+                  'https://storage.googleapis.com/exhibition-bucket/TSITC_4.jpg',
             ),
           ],
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/XZXFWfD.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/TSITC_5.jpg',
           ),
         ],
       ),
       nextRoute: '/AbbVie',
       nextOrganization: 'AbbVie 艾伯維藥品',
-      nextImageUrl: 'https://i.imgur.com/AyGbSq6.jpg',
+      nextImageUrl:
+          'https://storage.googleapis.com/exhibition-bucket/AbbVie_cover.png',
+      nextBlackImageUrl:
+          'https://storage.googleapis.com/exhibition-bucket/Cover_AbbVie.jpg',
       nextWorkshop: '#2023 PSS治療注射工作坊',
     );
   }
