@@ -1,14 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 import 'package:wang_hann_exhibition/app_ui/typography/app_text_style.dart';
 import 'package:wang_hann_exhibition/constant/logo_path.dart';
-import 'package:wang_hann_exhibition/constant/video_path.dart';
 import 'package:wang_hann_exhibition/utils/context_extension.dart';
 import 'package:wang_hann_exhibition/widget/base_portfolio.dart';
 
@@ -20,49 +18,55 @@ class TAITRAPortfolio extends StatefulWidget {
 }
 
 class _TAITRAPortfolioState extends State<TAITRAPortfolio> {
-  // late VideoPlayerController _controller;
-  // late ChewieController chewieController;
-  // late bool isClicked;
+  late VideoPlayerController _controller;
+  late ChewieController chewieController;
+  late bool isClicked;
 
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   chewieController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _controller.dispose();
+    chewieController.dispose();
+    super.dispose();
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   isClicked = false;
+  @override
+  void initState() {
+    super.initState();
+    isClicked = false;
 
-  //   _controller =
-  //       VideoPlayerController.asset(VideoPath.medicalTaiwanAftermovie);
+    // https://storage.googleapis.com/exhibition-bucket/medical_taiwan.mp4
+    _controller = VideoPlayerController.networkUrl(
+      Uri(
+        scheme: 'https',
+        host: 'storage.googleapis.com',
+        path: 'exhibition-bucket/medical_taiwan.mp4',
+      ),
+    );
 
-  //   _controller.initialize().then((_) {
-  //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+    _controller.initialize().then((_) {
+      // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
 
-  //     // mutes the video
-  //     _controller.setVolume(0);
-  //     // Plays the video once the widget is build and loaded.
-  //     _controller.play();
-  //     setState(() {});
+      // mutes the video
+      _controller.setVolume(0);
+      // Plays the video once the widget is build and loaded.
+      _controller.play();
+      setState(() {});
 
-  //     chewieController = ChewieController(
-  //       videoPlayerController: _controller,
-  //       autoPlay: true,
-  //       looping: true,
-  //     );
-  //   });
-  // }
+      chewieController = ChewieController(
+        videoPlayerController: _controller,
+        autoPlay: true,
+        looping: true,
+      );
+    });
+  }
 
-  // void replay(icClicked) async {
-  //   if (isClicked) {
-  //     await _controller.initialize();
-  //     _controller.play();
-  //     _controller.setVolume(0.5);
-  //   }
-  // }
+  void replay(icClicked) async {
+    if (isClicked) {
+      await _controller.initialize();
+      _controller.play();
+      _controller.setVolume(0.5);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,74 +159,70 @@ class _TAITRAPortfolioState extends State<TAITRAPortfolio> {
             )
           ],
           const Gap(36),
-          // Center(
-          //   child: _controller.value.isInitialized
-          //       ? AspectRatio(
-          //           aspectRatio: _controller.value.aspectRatio,
-          //           child: Stack(children: [
-          //             isClicked
-          //                 ? Chewie(controller: chewieController)
-          //                 : VideoPlayer(_controller),
-          //             if (!isClicked)
-          //               ColoredBox(
-          //                 color: WangHannColor.videoMask,
-          //                 child: Center(
-          //                   child: IconButton(
-          //                     onPressed: () {
-          //                       setState(() {
-          //                         isClicked = true;
-          //                       });
-          //                       replay(isClicked);
-          //                     },
-          //                     icon: SvgPicture.asset(LogoPath.playCircleBtn),
-          //                     color: WangHannColor.white,
-          //                     iconSize: context.isSmallScreen ? 40 : 80,
-          //                   ),
-          //                 ),
-          //               )
-          //           ]),
-          //         )
-          //       : AspectRatio(
-          //           aspectRatio: _controller.value.aspectRatio,
-          //           child: const BlurHash(hash: "LFIE|gIU%MM{~qt7RjM{RjWB9F-;"),
-          //         ),
-          // ),
-          const Gap(24),
-          CachedNetworkImage(
-            placeholder: (context, url) => const AspectRatio(
-              aspectRatio: 3 / 2,
-              child: BlurHash(hash: "LFIE|gIU%MM{~qt7RjM{RjWB9F-;"),
-            ),
-            imageUrl: 'https://i.imgur.com/41bxWBt.jpg',
+          Center(
+            child: _controller.value.isInitialized
+                ? AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: Stack(children: [
+                      isClicked
+                          ? Chewie(controller: chewieController)
+                          : VideoPlayer(_controller),
+                      if (!isClicked)
+                        ColoredBox(
+                          color: WangHannColor.videoMask,
+                          child: Center(
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isClicked = true;
+                                });
+                                replay(isClicked);
+                              },
+                              icon: SvgPicture.asset(LogoPath.playCircleBtn),
+                              color: WangHannColor.white,
+                              iconSize: context.isSmallScreen ? 40 : 80,
+                            ),
+                          ),
+                        )
+                    ]),
+                  )
+                : const Text('loading...'),
           ),
           const Gap(24),
           CachedNetworkImage(
-            placeholder: (context, url) => const AspectRatio(
-              aspectRatio: 3 / 2,
-              child: BlurHash(hash: "LFIE|gIU%MM{~qt7RjM{RjWB9F-;"),
-            ),
-            imageUrl: 'https://i.imgur.com/933jg18.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_1.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/mop8sgp.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_2.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/WYbEfEs.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_3.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/b5vQGBM.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_4.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/N8qqSlV.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_5.jpg',
+          ),
+          const Gap(24),
+          CachedNetworkImage(
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_6.jpg',
           ),
           const Gap(24),
           if (context.isSmallScreen) ...[
             CachedNetworkImage(
-              imageUrl: 'https://i.imgur.com/s0ZtOQA.jpg',
+              imageUrl:
+                  'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_7.jpg',
             ),
             const Gap(24),
             AspectRatio(
@@ -231,7 +231,8 @@ class _TAITRAPortfolioState extends State<TAITRAPortfolio> {
                 width: 335,
                 height: 223,
                 fit: BoxFit.cover,
-                imageUrl: 'https://i.imgur.com/eCM2MKA.jpg',
+                imageUrl:
+                    'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_8.jpg',
               ),
             ),
             const Gap(24),
@@ -242,40 +243,53 @@ class _TAITRAPortfolioState extends State<TAITRAPortfolio> {
                   width: 444,
                   height: 606,
                   fit: BoxFit.cover,
-                  imageUrl: 'https://i.imgur.com/s0ZtOQA.jpg',
+                  imageUrl:
+                      'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_7.jpg',
                 ),
                 const Gap(24),
                 CachedNetworkImage(
                   width: 444,
                   height: 606,
                   fit: BoxFit.cover,
-                  imageUrl: 'https://i.imgur.com/eCM2MKA.jpg',
+                  imageUrl:
+                      'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_8.jpg',
                 ),
               ],
             ),
             const Gap(24),
           ],
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/szVTJDn.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_9.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/1FYfant.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_10.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/QrPWuNa.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_11.jpg',
           ),
           const Gap(24),
           CachedNetworkImage(
-            imageUrl: 'https://i.imgur.com/RJeCSfh.jpg',
+            imageUrl:
+                'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_12.jpg',
           ),
         ],
       ),
       externalLink: true,
       nextOrganization: '羅氏 x 資誠聯合會計師事務所',
-      nextImageUrl: 'https://i.imgur.com/EoxdRjD.jpg',
+      nextImageUrl:
+          'https://storage.googleapis.com/exhibition-bucket/pwc_color.png',
+      nextBlackImageUrl:
+          'https://storage.googleapis.com/exhibition-bucket/Cover_PWCxRoche.png',
       nextWorkshop: '台灣推行次世代基因定序檢測實驗室管理與給付政策之探討',
     );
   }
+}
+
+class BlurHash {
+  const BlurHash();
 }
