@@ -24,11 +24,8 @@ class _PcTestimonyState extends State<PcTestimony> {
 
     listContentConfig.add(
       ContentConfig(
-        title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
-        textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
-        widgetDescription: pcTestimony(
+        widgetTitle: pcTestimony(
           "首次與汪翰生醫策展團隊合作，充分感受到熱情、熟稔又兼具創新的特質，著實讓活動增色不少，也能依照需求適時配合調整，是個讓人放心合作的好 Partner!",
           "中華民國對外貿易發展協會 展覽業務處",
         ),
@@ -37,11 +34,8 @@ class _PcTestimonyState extends State<PcTestimony> {
     );
     listContentConfig.add(
       ContentConfig(
-        title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
-        textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
-        widgetDescription: pcTestimony(
+        widgetTitle: pcTestimony(
           "認真負責的態度，高品質的視訊連線，讓客戶安心、放心、滿意，早已成為固定合作的夥伴，一試成主顧！",
           "台灣默克股份有限公司西藥部 李家隆",
         ),
@@ -50,11 +44,8 @@ class _PcTestimonyState extends State<PcTestimony> {
     );
     listContentConfig.add(
       ContentConfig(
-        title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
-        textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
-        widgetDescription: pcTestimony(
+        widgetTitle: pcTestimony(
           "汪翰團隊有熱情有活力，能細心聆聽客戶訴求，耐心與客戶討論，協助客戶順利完成專案，是值得長期配合的好夥伴!",
           "台灣免疫暨腫瘤學會",
         ),
@@ -65,40 +56,45 @@ class _PcTestimonyState extends State<PcTestimony> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 430,
-      child: IntroSlider(
-        key: UniqueKey(),
-        listContentConfig: listContentConfig,
-        isShowPrevBtn: false,
-        isShowSkipBtn: false,
-        isShowNextBtn: false,
-        isShowDoneBtn: false,
-        indicatorConfig: IndicatorConfig(
-          sizeIndicator: 12,
-          indicatorWidget: SvgPicture.asset(
-            IconPath.polygon,
-            colorFilter: ColorFilter.mode(
-              WangHannColor.black.withOpacity(0.75),
-              BlendMode.srcATop,
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              'WHAT THEY SAY',
+              style: UITextStyle.h3.copyWith(color: WangHannColor.white),
+            )
+          ],
+        ),
+        SizedBox(
+          height: 400,
+          child: IntroSlider(
+            key: UniqueKey(),
+            listContentConfig: listContentConfig,
+            isShowPrevBtn: false,
+            isShowSkipBtn: false,
+            isShowNextBtn: false,
+            isShowDoneBtn: false,
+            indicatorConfig: IndicatorConfig(
+              sizeIndicator: 12,
+              indicatorWidget: SvgPicture.asset(IconPath.polygonGrey),
+              activeIndicatorWidget: SvgPicture.asset(IconPath.polygon),
+              spaceBetweenIndicator: 10.67,
             ),
+            navigationBarConfig: NavigationBarConfig(
+              padding: EdgeInsets.zero,
+            ),
+            backgroundColorAllTabs: WangHannColor.black,
           ),
-          colorIndicator: WangHannColor.black.withOpacity(0.75),
-          activeIndicatorWidget: SvgPicture.asset(IconPath.polygon),
-          spaceBetweenIndicator: 10.67,
-        ),
-        navigationBarConfig: NavigationBarConfig(
-          padding: EdgeInsets.zero,
-        ),
-        backgroundColorAllTabs: WangHannColor.black,
-      ),
+        )
+      ],
     ).pcBlackBackgroundPadding();
   }
 }
 
 Widget pcTestimony(String content, String source) {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 155),
+    padding: const EdgeInsets.symmetric(horizontal: 155),
     child: Column(
       children: [
         const Gap(76),

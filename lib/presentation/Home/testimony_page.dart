@@ -24,11 +24,8 @@ class _TestimonyState extends State<Testimony> {
 
     listContentConfig.add(
       ContentConfig(
-        title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
-        textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
-        widgetDescription: testimony(
+        widgetTitle: testimony(
           "首次與汪翰生醫策展團隊合作，充分感受到熱情、熟稔又兼具創新的特質，著實讓活動增色不少，也能依照需求適時配合調整，是個讓人放心合作的好 Partner!",
           "中華民國對外貿易發展協會 展覽業務處",
         ),
@@ -37,11 +34,8 @@ class _TestimonyState extends State<Testimony> {
     );
     listContentConfig.add(
       ContentConfig(
-        title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
-        textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
-        widgetDescription: testimony(
+        widgetTitle: testimony(
           "認真負責的態度，高品質的視訊連線，讓客戶安心、放心、滿意，早已成為固定合作的夥伴，一試成主顧！",
           "台灣默克股份有限公司西藥部 李家隆",
         ),
@@ -50,11 +44,8 @@ class _TestimonyState extends State<Testimony> {
     );
     listContentConfig.add(
       ContentConfig(
-        title: 'WHAT THEY SAY',
-        styleTitle: UITextStyle.h3.copyWith(color: WangHannColor.white),
-        textAlignTitle: TextAlign.left,
         marginTitle: EdgeInsets.zero,
-        widgetDescription: testimony(
+        widgetTitle: testimony(
           "汪翰團隊有熱情有活力，能細心聆聽客戶訴求，耐心與客戶討論，協助客戶順利完成專案，是值得長期配合的好夥伴!",
           "台灣免疫暨腫瘤學會",
         ),
@@ -65,33 +56,40 @@ class _TestimonyState extends State<Testimony> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 362,
-      child: IntroSlider(
-        key: UniqueKey(),
-        listContentConfig: listContentConfig,
-        isShowPrevBtn: false,
-        isShowSkipBtn: false,
-        isShowNextBtn: false,
-        isShowDoneBtn: false,
-        indicatorConfig: IndicatorConfig(
-          sizeIndicator: 12,
-          indicatorWidget: SvgPicture.asset(
-            IconPath.polygon,
-            colorFilter: ColorFilter.mode(
-              WangHannColor.black.withOpacity(0.75),
-              BlendMode.srcATop,
-            ),
-          ),
-          activeIndicatorWidget: SvgPicture.asset(IconPath.polygon),
-          spaceBetweenIndicator: 10.67,
+    final iPhoneSE = MediaQuery.sizeOf(context).width <= 414;
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              'WHAT THEY SAY',
+              style: UITextStyle.h3.copyWith(color: WangHannColor.white),
+            )
+          ],
         ),
-        navigationBarConfig: NavigationBarConfig(
-          padding: EdgeInsets.zero,
-        ),
-        backgroundColorAllTabs: WangHannColor.black,
-      ),
-      //FIXME
+        SizedBox(
+            height: iPhoneSE ? 450 : 400,
+            child: IntroSlider(
+              key: UniqueKey(),
+              listContentConfig: listContentConfig,
+              isShowPrevBtn: false,
+              isShowSkipBtn: false,
+              isShowNextBtn: false,
+              isShowDoneBtn: false,
+              scrollPhysics: const ClampingScrollPhysics(),
+              indicatorConfig: IndicatorConfig(
+                sizeIndicator: 12,
+                indicatorWidget: SvgPicture.asset(IconPath.polygonGrey),
+                activeIndicatorWidget: SvgPicture.asset(IconPath.polygon),
+                spaceBetweenIndicator: 10.67,
+              ),
+              navigationBarConfig: NavigationBarConfig(
+                padding: EdgeInsets.zero,
+              ),
+              backgroundColorAllTabs: WangHannColor.black,
+            ))
+      ],
     ).mobileBlackBackgroundPadding();
   }
 }
