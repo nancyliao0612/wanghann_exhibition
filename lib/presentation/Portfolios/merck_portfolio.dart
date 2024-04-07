@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,10 +6,11 @@ import 'package:gap/gap.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wang_hann_exhibition/app_ui/color/wang_hann_color.dart';
 import 'package:wang_hann_exhibition/app_ui/typography/app_text_style.dart';
+import 'package:wang_hann_exhibition/constant/icon_path.dart';
 import 'package:wang_hann_exhibition/constant/logo_path.dart';
-import 'package:wang_hann_exhibition/constant/video_path.dart';
 import 'package:wang_hann_exhibition/utils/context_extension.dart';
 import 'package:wang_hann_exhibition/widget/base_portfolio.dart';
+import 'package:universal_html/html.dart' as html;
 
 class MerckPortfolio extends StatefulWidget {
   const MerckPortfolio({
@@ -36,8 +38,14 @@ class _MerckPortfolioState extends State<MerckPortfolio> {
     super.initState();
     isClicked = false;
 
-    _controller = VideoPlayerController.asset(VideoPath.tsrm_s_v4f);
-
+    // https://storage.googleapis.com/exhibition-bucket/merck_video_1.mp4
+    _controller = VideoPlayerController.networkUrl(
+      Uri(
+        scheme: 'https',
+        host: 'storage.googleapis.com',
+        path: 'exhibition-bucket/merck_video_1.mp4',
+      ),
+    );
     _controller.initialize().then((_) {
       // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
 
@@ -52,8 +60,6 @@ class _MerckPortfolioState extends State<MerckPortfolio> {
         autoPlay: true,
         looping: true,
       );
-
-      // _controller.value.isPlaying
     });
   }
 
@@ -61,6 +67,7 @@ class _MerckPortfolioState extends State<MerckPortfolio> {
     if (isClicked) {
       await _controller.initialize();
       _controller.play();
+      _controller.setVolume(0.5);
     }
   }
 
@@ -158,7 +165,7 @@ class _MerckPortfolioState extends State<MerckPortfolio> {
                       ? Chewie(controller: chewieController)
                       : _controller.value.isInitialized
                           ? VideoPlayer(_controller)
-                          : Center(
+                          : const Center(
                               child: CircularProgressIndicator(
                                   color: WangHannColor.black60)),
                   if (!isClicked && _controller.value.isInitialized)
@@ -182,11 +189,60 @@ class _MerckPortfolioState extends State<MerckPortfolio> {
               ),
             ),
           ),
+          const Gap(24),
+          AspectRatio(
+            aspectRatio: 3 / 2,
+            child: InkWell(
+              onTap: () =>
+                  html.window.open('https://youtu.be/4v-SWfwNvcc', '_blank'),
+              child: Stack(
+                children: [
+                  Opacity(
+                    opacity: 0.8,
+                    // child: ImageNetwork(
+                    //   image:
+                    //       'https://storage.googleapis.com/exhibition-bucket/merck_1.png',
+                    //   height: 600,
+                    //   width: 900,
+                    // ),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          'https://storage.googleapis.com/exhibition-bucket/merck_1.png',
+                    ),
+                  ),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: null,
+                          icon: SvgPicture.asset(
+                            IconPath.youtube,
+                            width: 53,
+                          ),
+                          color: WangHannColor.white,
+                        ),
+                        Text(
+                          'Watch on YouTube',
+                          style: UITextStyle.h3_video.copyWith(
+                            color: WangHannColor.white,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
       nextRoute: '/TAITRA',
       nextOrganization: '外貿協會',
-      nextImageUrl: 'https://i.imgur.com/41bxWBt.jpg',
+      nextImageUrl:
+          'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_1.jpg',
+      nextBlackImageUrl:
+          'https://storage.googleapis.com/exhibition-bucket/Cover_M-novator.jpg',
       nextWorkshop:
           '外貿協會主辦的「台灣國際醫療暨健康照護展(Medical Taiwan)」整合醫療、照護以及科技產業，打造最完整的健康產業生態系',
     );
