@@ -5,7 +5,6 @@ extension WidgetX on Widget {
   Widget mobileBlackBackgroundPadding() => ColoredBox(
         color: WangHannColor.black,
         child: Padding(
-          key: key,
           padding: const EdgeInsets.only(
             left: 24,
             right: 24,
@@ -19,7 +18,6 @@ extension WidgetX on Widget {
   Widget mobileBlackBackgroundPaddingForService() => ColoredBox(
         color: WangHannColor.black,
         child: Padding(
-          key: key,
           padding: const EdgeInsets.only(
             left: 24,
             right: 24,
@@ -36,7 +34,6 @@ extension WidgetX on Widget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ConstrainedBox(
-              key: key,
               constraints: const BoxConstraints(maxWidth: 960),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -56,51 +53,18 @@ extension WidgetX on Widget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ConstrainedBox(
-              key: key,
               constraints: const BoxConstraints(maxWidth: 960),
               child: Padding(
                 padding: const EdgeInsets.only(
                   left: 24,
                   right: 24,
-                  top: 5,
+                  top: 64,
                   bottom: 64,
                 ),
                 child: this,
               ),
             )
           ],
-        ),
-      );
-
-  Widget pcWhiteBackgroundPadding(Key? key) => ColoredBox(
-        color: WangHannColor.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ConstrainedBox(
-              key: key,
-              constraints: const BoxConstraints(maxWidth: 960),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 64,
-                ),
-                child: this,
-              ),
-            )
-          ],
-        ),
-      );
-
-  Widget partnerBackgroundPadding(bool pcScreen) => ColoredBox(
-        color: WangHannColor.white,
-        child: Padding(
-          key: key,
-          padding: EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: pcScreen ? 64 : 32,
-          ),
-          child: this,
         ),
       );
 
@@ -122,7 +86,6 @@ extension WidgetX on Widget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ConstrainedBox(
-                    key: key,
                     constraints: const BoxConstraints(maxWidth: 960),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -140,7 +103,6 @@ extension WidgetX on Widget {
         color: WangHannColor.black,
         child: isSmallScreen
             ? Padding(
-                key: key,
                 padding: const EdgeInsets.only(
                   left: 24,
                   right: 24,
@@ -153,7 +115,6 @@ extension WidgetX on Widget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ConstrainedBox(
-                    key: key,
                     constraints: const BoxConstraints(maxWidth: 960),
                     child: Padding(
                       padding: const EdgeInsets.only(
