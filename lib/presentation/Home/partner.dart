@@ -42,16 +42,16 @@ class Partner extends StatelessWidget {
               ),
               Text(
                 '藥廠、企業、醫學會',
-                style: UITextStyle.h3Chinese.copyWith(
+                style: UITextStyle.h3.copyWith(
                   color: WangHannColor.lightGrey,
                 ),
-              )
+              ),
             ],
           ),
           const Gap(32),
           Text(
             'Sanofi 賽諾菲\nRoche 羅氏\nMedJohnson 美強生\nillumina 因美納\nMerck KGaA 默克\nAbbVie 艾伯維\nTSITC 台灣免疫暨腫瘤學會\n台灣臨床腫瘤醫學會台灣病理學會\n中華民國內分泌暨糖尿病學會\n台灣生殖醫學會\n台灣婦產科醫學會\n台灣新生兒科醫學會\n台灣小兒消化醫學會\n臺灣牙周病醫學會\n台灣胰臟癌醫學會\nTAITRA 中華民國對外貿易發展協會\nPwC 資誠聯合會計師事務所\nH2U 永悅健康股份有限公司',
-            style: UITextStyle.title1Chinese.copyWith(
+            style: UITextStyle.title1.copyWith(
               color: WangHannColor.black60,
             ),
           ),
