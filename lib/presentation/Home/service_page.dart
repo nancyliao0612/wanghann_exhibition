@@ -50,11 +50,6 @@ class ServicePage extends StatelessWidget {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Exceptional People, Building Exceptional Companies',
-                style: UITextStyle.title1.copyWith(color: WangHannColor.white),
-              ),
-              const Gap(64),
               Row(
                 children: [
                   Text(
@@ -124,8 +119,8 @@ Widget service(isSmallScreen, serviceItemInEnglish, serviceItemInChinese) {
           Expanded(
             child: Text(
               serviceItemInChinese,
-              style: UITextStyle.title1Chinese.copyWith(
-                color: WangHannColor.white.withOpacity(0.5),
+              style: UITextStyle.title1.copyWith(
+                color: const Color(0xFF8F8F8F),
               ),
             ),
           )

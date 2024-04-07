@@ -182,7 +182,7 @@ class Footer extends StatelessWidget {
                         Text(
                           '汪翰生醫策展',
                           style: UITextStyle.title1Chinese.copyWith(
-                            color: WangHannColor.white.withOpacity(0.5),
+                            color: const Color(0xFFABABAB),
                           ),
                         ),
                         const Gap(16),
@@ -203,7 +203,7 @@ class Footer extends StatelessWidget {
                         Text(
                           '汪翰精準生醫',
                           style: UITextStyle.title1Chinese.copyWith(
-                            color: WangHannColor.white.withOpacity(0.5),
+                            color: const Color(0xFFABABAB),
                           ),
                         ),
                       ],
