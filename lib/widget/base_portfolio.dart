@@ -16,6 +16,7 @@ class BasePortfolio extends StatelessWidget {
     this.externalLink,
     required this.nextOrganization,
     required this.nextImageUrl,
+    required this.nextBlackImageUrl,
     required this.nextWorkshop,
     super.key,
   });
@@ -26,6 +27,7 @@ class BasePortfolio extends StatelessWidget {
   final bool? externalLink;
   final String nextOrganization;
   final String nextImageUrl;
+  final String nextBlackImageUrl;
   final String nextWorkshop;
 
   @override
@@ -81,7 +83,7 @@ class BasePortfolio extends StatelessWidget {
                           imageUrl: nextImageUrl,
                           client: nextOrganization,
                           event: nextWorkshop,
-                          isSmallScreen: context.isSmallScreen,
+                          blackImageUrl: nextBlackImageUrl,
                         ),
                       ],
                     ).whiteBackgroundPadding,

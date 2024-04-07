@@ -24,41 +24,57 @@ class _PortfolioPageState extends State<PortfolioPage> {
             )
           ],
         ),
-        BaseWork(
-            route: '/TSITC',
-            imageUrl: 'https://i.imgur.com/1EwMgSV.jpg',
-            client: 'TSITC 臺灣免疫暨腫瘤學會',
-            event: '112年度 癌症治療解密研習班',
-            isSmallScreen: context.isSmallScreen),
-        BaseWork(
+        const BaseWork(
+          route: '/TSITC',
+          imageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/TSITC_2.jpg',
+          blackImageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/Cover_TSITC.jpg',
+          client: 'TSITC 臺灣免疫暨腫瘤學會',
+          event: '112年度 癌症治療解密研習班',
+          tapNumber: '1',
+        ),
+        const BaseWork(
           route: '/AbbVie',
-          imageUrl: 'https://i.imgur.com/AyGbSq6.jpg',
+          imageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/AbbVie_cover.png',
+          blackImageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/Cover_AbbVie.jpg',
           client: 'AbbVie 艾伯維藥品',
           event: '#2023 PSS治療注射工作坊',
-          isSmallScreen: context.isSmallScreen,
+          tapNumber: '2',
         ),
-        BaseWork(
+        const BaseWork(
           route: '/Merck',
-          imageUrl: 'https://i.imgur.com/h7FCNgn.png',
+          imageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/merck_cover_color.png',
+          blackImageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/Cover_Merck.jpg',
           client: 'Merck KGaA 默克',
           event: '默克中國海峽兩岸視訊連線 醫學教育直播',
-          isSmallScreen: context.isSmallScreen,
+          tapNumber: '3',
         ),
-        BaseWork(
+        const BaseWork(
           route: '/TAITRA',
-          imageUrl: 'https://i.imgur.com/41bxWBt.jpg',
+          imageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/medical_taiwan_1.jpg',
+          blackImageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/Cover_M-novator.jpg',
           client: '外貿協會',
           event:
               '外貿協會主辦的「台灣國際醫療暨健康照護展(Medical Taiwan)」整合醫療、照護以及科技產業，打造最完整的健康產業生態系',
-          isSmallScreen: context.isSmallScreen,
+          tapNumber: '4',
         ),
-        BaseWork(
+        const BaseWork(
           externalLink: true,
-          imageUrl: 'https://i.imgur.com/EoxdRjD.jpg',
+          imageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/pwc_color.png',
+          blackImageUrl:
+              'https://storage.googleapis.com/exhibition-bucket/Cover_PWCxRoche.png',
           client: '羅氏 x 資誠聯合會計師事務所',
           showArrow: true,
           event: '台灣推行次世代基因定序檢測實驗室管理與給付政策之探討',
-          isSmallScreen: context.isSmallScreen,
+          tapNumber: '5',
         ),
       ],
     ).customWhiteBackgroundPadding(
