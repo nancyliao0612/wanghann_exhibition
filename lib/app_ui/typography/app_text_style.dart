@@ -42,11 +42,11 @@ abstract class UITextStyle {
     ),
   );
 
-  static TextStyle h3Chinese = GoogleFonts.notoSansTc(
+  static TextStyle h3_video = GoogleFonts.robotoCondensed(
     textStyle: const TextStyle(
       fontSize: 32,
-      fontWeight: FontWeight.w600,
-      height: 37.54 / 32,
+      fontWeight: FontWeight.w500,
+      height: 41.6 / 32,
     ),
   );
 
